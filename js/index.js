@@ -47,6 +47,12 @@ for (buttons of backBtn){
     } )
 }
 
+carousel.onclick = function(event){
+    const id = event.target.dataset.id;
+    localStorage.setItem("surfboard", JSON.stringify(id));
+    console.log(id);
+}
+
 function toGame(){
     window.location.href ="game.html";
 }
