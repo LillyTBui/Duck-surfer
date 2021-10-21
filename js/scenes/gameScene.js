@@ -2,7 +2,7 @@ const id = JSON.parse(localStorage.getItem("surfboard"));
 let key;
 
 if(id === "1"){
-    key = 'sprite1';
+    key = 'sprite';
 }
 else if(id === "2"){
     key = 'sprite2';
@@ -18,9 +18,9 @@ class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image('background', '../../images/platform3.gif')
-        this.load.image('sprite1', '../../images/player-green.png')
-        this.load.image('sprite2', '../../images/player-gray.png')
-        this.load.image('sprite3', '../../images/player-pink.png')
+        this.load.spritesheet('sprite', '../../images/spritesheet-green.png', {frameWidth: 400, frameHeight: 220});
+        this.load.spritesheet('sprite2', '../../images/spritesheet-gray.png', {frameWidth: 400, frameHeight: 220});
+        this.load.spritesheet('sprite3', '../../images/spritesheet-pink.png', {frameWidth: 400, frameHeight: 220});
     }
 
     create() {
@@ -30,22 +30,30 @@ class GameScene extends Phaser.Scene {
         let scale = Math.min(scaleX, scaleY);
         gameState.background.setScale(scale).setScrollFactor(0);
 
-        gameState.duckRight = this.physics.add.sprite(300, 400, key)
-        gameState.duckRight.setScale(0.3);
-        gameState.duckRight.setCollideWorldBounds(true);
-
         gameState.cursors = this.input.keyboard.createCursorKeys();
+
+        gameState.sprite = this.physics.add.sprite(400, 100, key);
+        gameState.sprite.setCollideWorldBounds(true);
+        this.anims.create({
+            key: 'movement',
+            frames:
+            this.anims.generateFrameNumbers(key, {start: 0, end: 5}),
+            frameRate: 9, 
+            repeat: -1
+        });
+
+       gameState.sprite.anims.play('movement', true);
     }
 
     update() {
         if (gameState.cursors.right.isDown) {
-            gameState.duckRight.x += 3;
+            gameState.sprite.x += 3;
         } else if (gameState.cursors.left.isDown) {
-            gameState.duckRight.x -= 3;
+            gameState.sprite.x -= 3;
         } else if (gameState.cursors.up.isDown) {
-            gameState.duckRight.y -= 5;
+            gameState.sprite.y -= 5;
         } else if (gameState.cursors.down.isDown) {
-            gameState.duckRight.y += 2;
+            gameState.sprite.y += 2;
         }
     }
 
