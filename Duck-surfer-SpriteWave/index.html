@@ -1,0 +1,146 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Duck surfer</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <section class="homepage">
+      <a href="index.html">
+        <img src="images/logo.png" alt="duck surfer logo" class="logo" />
+      </a>
+      <div class="menu-container">
+        <div class="box menu">
+          <img
+            src="images/btn-start.png"
+            alt="start game button"
+            class="btn"
+            id="btn-start"
+          />
+          <img
+            src="images/icon-how_to_play.png"
+            alt="how to play button"
+            class="btn"
+            id="btn-how-to-play"
+          />
+          <img
+            src="images/settings.png"
+            alt="settings button"
+            class="btn"
+            id="btn-settings"
+          />
+          <img
+            src="images/btn-credits.png"
+            alt="credits button"
+            class="btn"
+            id="btn-credits"
+          />
+        </div>
+        <div id="carousel-container" class="carousel" data-bs-ride="carousel">
+          <div class="box carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="images/brett1.png"
+                alt="green surfboard"
+                class="d-block w-25" id="surfboard-green" data-id="1"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="images/brett2.png"
+                alt="gray surfboard"
+                class="d-block w-25" id="surfboard-gray" data-id="2"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="images/brett3.png"
+                alt="pink surfboard"
+                class="d-block w-25" id="surfboard-pink" data-id="3"
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carousel-container"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carousel-container"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="box block how-to-play">
+          <h1>Spillregler</h1>
+          <ul>
+            <li>
+              Velg et surfebrett og bruk tastaturene (venstre, høyre, opp og
+              ned) til å bevege deg rundt.
+            </li>
+            <li>Hensikten er å få høyeste poengscore</li>
+            <li>Du mister liv ved å treffe en hindring</li>
+            <li>Spillet slutter når du har 0 liv igjen.</li>
+          </ul>
+          <img src="images/btn-back.png" alt="back button" class="btn-back" />
+        </div>
+        <div class="box block settings">
+          <h1>Settings</h1>
+          <div class="settings-div">
+            <h2>Lyd</h2>
+            <input type="range" />
+          </div>
+          <div class="settings-div">
+            <h2>Oppløsning</h2>
+            <select name="resolution" id="resolution">
+              <option value="1280x720">1280x720</option>
+              <option value="1600x900">1600x900</option>
+              <option value="1920x1080">1920x1080</option>
+            </select>
+          </div>
+          <img src="images/btn-back.png" alt="back button" class="btn-back" />
+        </div>
+        <div class="box block credits">
+          <h1>Credits</h1>
+          <p>
+            Dette spillet var en prosjektoppgave i informasjonsbehandling ved
+            NTNU.
+          </p>
+          <p>Spillet er laget av:</p>
+          <ul>
+            <li>Johannes Solbraa Bay</li>
+            <li>Lilly Thi Bui</li>
+            <li>Kaspar Kindem</li>
+            <li>Stian Sagstad</li>
+          </ul>
+          <img src="images/btn-back.png" alt="back button" class="btn-back" />
+        </div>
+      </div>
+    </section>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
