@@ -17,21 +17,34 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', '../../images/platform3.gif')
+        this.load.spritesheet('backgroundWave', '../../images/backgroundWaveSprite.png',{
+            frameHeight: 1200,
+            frameWidth: 1200,
+        });
         this.load.image('sprite1', '../../images/player-green.png')
         this.load.image('sprite2', '../../images/player-gray.png')
         this.load.image('sprite3', '../../images/player-pink.png')
     }
 
     create() {
-        gameState.background = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background');
-        let scaleX = this.cameras.main.width / gameState.background.width;
-        let scaleY = this.cameras.main.height / gameState.background.height;
+        gameState.backgroundWave = this.add.sprite( this.cameras.main.width/2 , this.cameras.main.height/2, 'backgroundWave');
+        this.anims.create({
+            key: "wave",
+            frames: this.anims.generateFrameNumbers("backgroundWave", {
+                start: 0,
+                end: 6
+            }),
+            frameRate: 7,
+            repeat: -1
+        });
+        gameState.backgroundWave.anims.play("wave", true);
+        let scaleX = this.cameras.main.width / gameState.backgroundWave.width ;
+        let scaleY = this.cameras.main.height / gameState.backgroundWave.height;
         let scale = Math.min(scaleX, scaleY);
-        gameState.background.setScale(scale).setScrollFactor(0);
+        gameState.backgroundWave.setScale(scale*1.35).setScrollFactor(0);
 
-        gameState.duckRight = this.physics.add.sprite(300, 400, key)
-        gameState.duckRight.setScale(0.3);
+        gameState.duckRight = this.physics.add.sprite(this.cameras.main.width / 3, this.cameras.main.height / 1.8, key)
+        gameState.duckRight.setScale(scale*0.4);
         gameState.duckRight.setCollideWorldBounds(true);
 
         gameState.cursors = this.input.keyboard.createCursorKeys();
