@@ -32,12 +32,12 @@ class GameScene extends Phaser.Scene {
 
         gameState.cursors = this.input.keyboard.createCursorKeys();
 
-        gameState.sprite = this.physics.add.sprite(400, 100, key);
+        gameState.sprite = this.physics.add.sprite(200, 400, key).setScale(0.3);
         gameState.sprite.setCollideWorldBounds(true);
         this.anims.create({
             key: 'movement',
             frames:
-            this.anims.generateFrameNumbers(key, {start: 0, end: 5}),
+            this.anims.generateFrameNumbers(key, {start: 0, end: 4}),
             frameRate: 9, 
             repeat: -1
         });
@@ -47,13 +47,13 @@ class GameScene extends Phaser.Scene {
 
     update() {
         if (gameState.cursors.right.isDown) {
-            gameState.sprite.x += 3;
+            gameState.sprite.x += 2;
         } else if (gameState.cursors.left.isDown) {
-            gameState.sprite.x -= 3;
+            gameState.sprite.x -= 2;
         } else if (gameState.cursors.up.isDown) {
-            gameState.sprite.y -= 5;
+            gameState.sprite.y -= 3;
         } else if (gameState.cursors.down.isDown) {
-            gameState.sprite.y += 2;
+            gameState.sprite.y += 3;
         }
     }
 
