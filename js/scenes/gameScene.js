@@ -73,7 +73,10 @@ class GameScene extends Phaser.Scene {
 
         // Player animation
         gameState.player = this.physics.add.sprite(400, 100, key);
+        gameState.player.setSize(80, 200);
+        gameState.player.setOffset(200,0);
         gameState.player.setCollideWorldBounds(true);
+
         this.anims.create({
             key: 'movement',
             frames:
