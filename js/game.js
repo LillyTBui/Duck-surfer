@@ -1,4 +1,7 @@
-const gameState ={};
+const gameState ={
+    score: 0,
+    highScore: 0,
+};
 
 const config = {
     type: Phaser.AUTO,
@@ -8,8 +11,8 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0},
-            debug: false
+            gravity: {x:-20, y: 0},
+            debug: true
         }
     },
     scene: [GameScene]
