@@ -13,7 +13,6 @@
 // ->Problem: highscore blir ikke med når spillet starter på nytt
 
 
-
 const id = JSON.parse(localStorage.getItem("surfboard"));
 let key;
 
@@ -86,20 +85,24 @@ class GameScene extends Phaser.Scene {
        gameState.player.anims.play('movement', true);
 
        // Score text 
+       let highScore = JSON.parse(localStorage.getItem("highscore"));
+       if(highScore == null){
+           highScore = 0;
+       }
        gameState.scoreText = this.add.text((this.cameras.main.width / 2), 10, 'Score: 0', { fontSize: '20px', fill: '#000000' });
-       gameState.highScoreText = this.add.text((this.cameras.main.width / 2) + 200, 10, 'High score: 0', { fontSize: '20px', fill: '#000000' });
-
+       gameState.highScoreText = this.add.text((this.cameras.main.width / 2) + 200, 10, `High score: ${highScore}`, { fontSize: '20px', fill: '#000000' });
 
         //Kill by waveEnd
         this.physics.add.overlap(gameState.player, waveEnd, () => {
             this.physics.pause();
             this.add.text(this.cameras.main.width / 3, this.cameras.main.height / 2, 'Oops! You got caught by the wave!', { fontSize: '30px', fill: '#000000' });
             this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) + 50, 'Click to Restart', { fontSize: '15px', fill: '#000000' });
-            if(gameState.score > gameState.highScore){
-                gameState.highScore = gameState.score
-                gameState.highScoreText.setText(`High score: ${gameState.highScore}`);
+            if(gameState.score > highScore){
+                highScore = gameState.score
+                localStorage.setItem("highscore", JSON.stringify(highScore));
+                gameState.highScoreText.setText(`High score: ${highScore}`);
                 this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) + 100, 'YAY! New High Score', { fontSize: '30px', fill: '#000000' });
-                }
+            }
             gameState.active = false;
             this.anims.pauseAll();        
             this.input.on('pointerup', () =>{
@@ -139,9 +142,10 @@ class GameScene extends Phaser.Scene {
             
             this.add.text(this.cameras.main.width / 3, this.cameras.main.height / 2, 'Ouch! You got caught by a shark!', { fontSize: '30px', fill: '#000000' });
             this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) + 50, 'Click to Restart', { fontSize: '15px', fill: '#000000' });
-            if(gameState.score > gameState.highScore){
-                gameState.highScore = gameState.score
-                gameState.highScoreText.setText(`High score: ${gameState.highScore}`);
+            if(gameState.score > highScore){
+                highScore = gameState.score
+                localStorage.setItem("highscore", JSON.stringify(highScore));
+                gameState.highScoreText.setText(`High score: ${highScore}`);
                 this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) + 100, 'YAY! New High Score', { fontSize: '30px', fill: '#000000' });
                 }
             gameState.active = false;
@@ -152,8 +156,6 @@ class GameScene extends Phaser.Scene {
                 this.scene.restart();
             });
           });
-    
-
     }
 
     update() {
