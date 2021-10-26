@@ -74,7 +74,7 @@ class GameScene extends Phaser.Scene {
         gameState.cursors = this.input.keyboard.createCursorKeys();
 
         // Player animation
-        gameState.player = this.physics.add.sprite(400, 100, key);
+        gameState.player = this.physics.add.sprite(400, 100, key).setScale(0.7);
         gameState.player.setCollideWorldBounds(true);
         this.anims.create({
             key: 'movement',
@@ -159,11 +159,12 @@ class GameScene extends Phaser.Scene {
 
           function iceBlockGen () {
             const yCoord = Math.random() * this.cameras.main.height + (this.cameras.main.height/8);
+            //const yCoord = Math.random() * (max - min) + min;
             IceBlocks.create(this.cameras.main.width, yCoord, 'iceBlock').setScale(0.3);
           }
         // IceBlock loop
           const iceBlockGenLoop = this.time.addEvent({
-            delay: 10,
+            delay: 3000,
             callback: iceBlockGen,
             callbackScope: this,
             loop: true,
