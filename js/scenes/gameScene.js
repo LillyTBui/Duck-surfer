@@ -35,6 +35,7 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.image('bgEnd', '../../images/background_end2.png')
         this.load.image('shark', '../../images/shark.png')
+        this.load.image('iceBlock', '../../images/ice block.png')
         this.load.spritesheet('bgWave', '../../images/background_wave.png',{
             frameHeight: 1200,
             frameWidth: 1200,
@@ -113,12 +114,12 @@ class GameScene extends Phaser.Scene {
           const sharks = this.physics.add.group();
 
           function sharkGen () {
-            const yCoord = Math.random() * 450;
+            const yCoord = Math.random() * this.cameras.main.height + (this.cameras.main.height/8);
             sharks.create(this.cameras.main.width, yCoord, 'shark').setScale(0.3);
           }
         // Shark loop
           const sharkGenLoop = this.time.addEvent({
-            delay: 4000,
+            delay: 5000,
             callback: sharkGen,
             callbackScope: this,
             loop: true,
@@ -138,6 +139,50 @@ class GameScene extends Phaser.Scene {
             this.physics.pause();
             
             this.add.text(this.cameras.main.width / 3, this.cameras.main.height / 2, 'Ouch! You got caught by a shark!', { fontSize: '30px', fill: '#000000' });
+            this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) + 50, 'Click to Restart', { fontSize: '15px', fill: '#000000' });
+            if(gameState.score > gameState.highScore){
+                gameState.highScore = gameState.score
+                gameState.highScoreText.setText(`High score: ${gameState.highScore}`);
+                this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) + 100, 'YAY! New High Score', { fontSize: '30px', fill: '#000000' });
+                }
+            gameState.active = false;
+            this.anims.pauseAll();
+            this.input.on('pointerup', () =>{
+                gameState.score = 0;
+                this.anims.resumeAll();
+                this.scene.restart();
+            });
+          });
+
+          //IceBlocks
+          const IceBlocks = this.physics.add.group();
+
+          function iceBlockGen () {
+            const yCoord = Math.random() * this.cameras.main.height + (this.cameras.main.height/8);
+            IceBlocks.create(this.cameras.main.width, yCoord, 'iceBlock').setScale(0.3);
+          }
+        // IceBlock loop
+          const iceBlockGenLoop = this.time.addEvent({
+            delay: 10,
+            callback: iceBlockGen,
+            callbackScope: this,
+            loop: true,
+          });
+
+        // Remove IceBlocks
+          this.physics.add.overlap(IceBlocks, waveEnd, function (iceBlock) {
+            iceBlock.destroy();
+            //Avoiding iceBlocks adds score
+            gameState.score += 10;
+            gameState.scoreText.setText(`Score: ${gameState.score}`);              
+          });
+          
+        // Overlap IceBlocks  
+          this.physics.add.overlap(gameState.player, IceBlocks, () => {
+            iceBlockGenLoop.destroy();
+            this.physics.pause();
+            
+            this.add.text(this.cameras.main.width / 3, this.cameras.main.height / 2, 'Ouch! You hit an Ice Berg!', { fontSize: '30px', fill: '#000000' });
             this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) + 50, 'Click to Restart', { fontSize: '15px', fill: '#000000' });
             if(gameState.score > gameState.highScore){
                 gameState.highScore = gameState.score
