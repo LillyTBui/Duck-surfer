@@ -159,7 +159,6 @@ class GameScene extends Phaser.Scene {
 
           function iceBlockGen () {
             const yCoord = Math.random() * this.cameras.main.height + (this.cameras.main.height/8);
-            //const yCoord = Math.random() * (max - min) + min;
             IceBlocks.create(this.cameras.main.width, yCoord, 'iceBlock').setScale(0.3);
           }
         // IceBlock loop
