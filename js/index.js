@@ -60,3 +60,16 @@ function toGame(){
 surfGreen.addEventListener("click", toGame);
 surfGray.addEventListener("click", toGame);
 surfPink.addEventListener("click", toGame);
+
+/* music settings */
+const backgroundSong = document.querySelector("#backgroundSong");
+let volume = document.querySelector(".volume");
+
+window.onclick = function(){
+    backgroundSong.play();
+}
+
+volume.addEventListener('input', function(){
+    backgroundSong.volume = volume.value;
+});
+
