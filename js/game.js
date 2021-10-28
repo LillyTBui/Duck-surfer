@@ -7,15 +7,17 @@ const config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
+
     parent: "game-container",
     physics: {
         default: 'arcade',
         arcade: {
             gravity: {x:-20, y: 0},
+            enableBody: true,
             debug: true
         }
     },
-    scene: [GameScene]
+     scene: [ BootScene, GameScene, PauseScene, EndScene]
 };
 
 const game = new Phaser.Game(config);
