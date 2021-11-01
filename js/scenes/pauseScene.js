@@ -50,7 +50,7 @@ class PauseScene extends Phaser.Scene {
 
         // Exit
         gameState.exit.on('pointerup', () => {
-
+            window.location.replace('/../../index.html');
         })
 
         // How to play

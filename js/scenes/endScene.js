@@ -65,12 +65,12 @@ class EndScene extends Phaser.Scene {
 
         // Exit
         gameState.exit.on('pointerup', () => {
-
+            window.location.replace('../../index.html')
         })
 
         // How to play
         gameState.howto.on('pointerup', () => {
-
+            document.getElementsByClassName('box-menu')
         })       
 
 
