@@ -3,9 +3,9 @@
 1) Merget med main
 2) lagt til den gamle bakgrunnen
 3) merget brettet og spriten sammen
-4) gjort rammen til brettet smallere, kan eventuelt justeres selv linje 77 og 78.
+4) gjort rammen til brettet smallere, kan eventuelt justeres selv linje 80 og 81.
 5) lagd til endringene til Stian: 
-    ->flere liv (l.130 - 136 og l.191-210)
+    ->flere liv (l.132 - 138 og l.193-212)
     ->knapp endringer i endScene og pauseScene
 */
 
