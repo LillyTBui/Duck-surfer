@@ -14,7 +14,8 @@
 3. I pauseScene og endScene er det kun playknapp, lydknapp og exitknapp
 4. ikke tatt vekk teksten i pauseScene og endScene, med det skal byttes ut med bilde(kanskje bare endScene..?)
 5. Skalert alt som var igjen, alle knapper i alle scener og enemies.
-
+6. Lagt sprite over enemies
+7. lagt settingsknapp og hjerter over sprite.
 */
 
 const id = JSON.parse(localStorage.getItem("surfboard"));
@@ -85,6 +86,7 @@ class GameScene extends Phaser.Scene {
     gameState.player.setSize(280, 90);
     gameState.player.setOffset(270, 160);
     gameState.player.setCollideWorldBounds(true);
+    gameState.player.depth = 90;
 
     this.anims.create({
       key: 'movement',
@@ -99,6 +101,7 @@ class GameScene extends Phaser.Scene {
 
     //Settings button
     gameState.settings = this.add.image(100, 40, "iconsettings").setScale(scale / 3.6).setInteractive();
+    gameState.settings.depth = 100;
 
     //Settings functionality
     gameState.settings.on("pointerover", () => {
@@ -132,9 +135,11 @@ class GameScene extends Phaser.Scene {
 
     //Hearts
     gameState.heart1 = this.add.image(200, 40, 'heart').setScale(scale / 2.6);
+    gameState.heart1.depth = 100;
     gameState.heart2 = this.add.image(270, 40, 'heart').setScale(scale / 2.6);
+    gameState.heart2.depth = 100;
     gameState.heart3 = this.add.image(340, 40, 'heart').setScale(scale / 2.6);
-
+    gameState.heart3.depth = 100;
     // Lives        
     gameState.livesText = this.add.text((this.cameras.main.width / 2 + 300), 10, 'Lives: 3', { fontSize: '20px', fill: '#000000' });
 
@@ -170,6 +175,7 @@ class GameScene extends Phaser.Scene {
       const yCoord = Math.random() * this.cameras.main.height + this.cameras.main.height / 8;
       let randomEnemies = enemyList[Math.floor(Math.random() * enemyList.length)];
       enemies.create(this.cameras.main.width, yCoord, randomEnemies).setScale(scale / 3);
+      enemies.depth = 50;
     }
     // Enemy loop
     const enemyGenLoop = this.time.addEvent({
@@ -189,8 +195,8 @@ class GameScene extends Phaser.Scene {
 
     // Kill by enemies  
     this.physics.add.overlap(gameState.player, enemies, () => {
-      
-      //System for å miste ett hjerte ved hvert 100. liv.
+    
+      // //System for å miste ett hjerte ved hvert 100. liv.
       this.cameras.main.shake(100, .006);
       gameState.lives += 1;
       gameState.livesText.setText(`Lives: ${gameState.lives}`);
