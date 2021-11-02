@@ -7,6 +7,15 @@
 5) lagd til endringene til Stian: 
     ->flere liv (l.132 - 138 og l.193-212)
     ->knapp endringer i endScene og pauseScene
+
+// 2.11 Stian
+1. Rydda opp i  knappene
+2. nå er det kun settingsbutton i spillet, som tar deg til pauseScene
+3. I pauseScene og endScene er det kun playknapp, lydknapp og exitknapp
+4. ikke tatt vekk teksten i pauseScene og endScene, med det skal byttes ut med bilde(kanskje bare endScene..?)
+5. Skalert alt som var igjen, alle knapper i alle scener og enemies.
+6. Lagt sprite over enemies
+7. lagt settingsknapp og hjerter over sprite.
 */
 
 const id = JSON.parse(localStorage.getItem("surfboard"));
@@ -35,9 +44,6 @@ class GameScene extends Phaser.Scene {
       frameHeight: 1200,
       frameWidth: 1200,
     });
-
-    //Heart
-    this.load.image('heart', '../../images/heart.png');
 
     //sprite
     this.load.spritesheet('sprite1', '../../images/spritesheet-green.png', { frameWidth: 644, frameHeight: 335 });
@@ -80,6 +86,7 @@ class GameScene extends Phaser.Scene {
     gameState.player.setSize(280, 90);
     gameState.player.setOffset(270, 160);
     gameState.player.setCollideWorldBounds(true);
+    gameState.player.depth = 90;
 
     this.anims.create({
       key: 'movement',
@@ -92,25 +99,22 @@ class GameScene extends Phaser.Scene {
     gameState.player.anims.play('movement', true);
     gameState.player.setScale(scale / 2.5).setScrollFactor(0); //scale board sprite
 
-    //Menu button
-    gameState.menu = this.add.image(100, 40, "iconmenu").setScale(0.3).setInteractive();
+    //Settings button
+    gameState.settings = this.add.image(100, 40, "iconsettings").setScale(scale / 3.6).setInteractive();
+    gameState.settings.depth = 100;
 
-    //ButtonBAR functionality
-    gameState.menu.on("pointerover", () => {
-      gameState.menu.setScale(0.4);
+    //Settings functionality
+    gameState.settings.on("pointerover", () => {
+      gameState.settings.setScale(scale / 3);
     });
-    gameState.menu.on("pointerout", () => {
-      gameState.menu.setScale(0.3);
+    gameState.settings.on("pointerout", () => {
+      gameState.settings.setScale(scale / 3.6);
     });
-    gameState.menu.on("pointerdown", () => {
-      gameState.menu.setScale(0.45);
+    gameState.settings.on("pointerdown", () => {
+      gameState.settings.setScale(scale / 2.7);
     });
-    gameState.menu.on("pointerup", () => {
-      gameState.menu.setScale(0.3);
-    });
-
-    // Menu
-    gameState.menu.on("pointerup", () => {
+    gameState.settings.on("pointerup", () => {
+      gameState.settings.setScale(scale / 3.6);
       this.scene.pause("GameScene");
       this.scene.launch("PauseScene");
     });
@@ -120,22 +124,24 @@ class GameScene extends Phaser.Scene {
     if (highScore == null) {
       highScore = 0;
     }
-    gameState.scoreText = this.add.text(this.cameras.main.width / 2, 10, "Score: 0", {
+    gameState.scoreText = this.add.text(this.cameras.main.width / 2 - 100, 10, "Score: 0", {
       fontSize: "20px",
       fill: "#000000",
     });
-    gameState.highScoreText = this.add.text(this.cameras.main.width / 2 + 200, 10, `High score: ${highScore}`, {
+    gameState.highScoreText = this.add.text(this.cameras.main.width / 2 + 100, 10, `High score: ${highScore}`, {
       fontSize: "20px",
       fill: "#000000",
     });
 
     //Hearts
-    gameState.heart1 = this.add.image(200, 40, 'heart').setScale(.4);
-    gameState.heart2 = this.add.image(270, 40, 'heart').setScale(.4);
-    gameState.heart3 = this.add.image(340, 40, 'heart').setScale(.4);
-
+    gameState.heart1 = this.add.image(200, 40, 'heart').setScale(scale / 2.6);
+    gameState.heart1.depth = 100;
+    gameState.heart2 = this.add.image(270, 40, 'heart').setScale(scale / 2.6);
+    gameState.heart2.depth = 100;
+    gameState.heart3 = this.add.image(340, 40, 'heart').setScale(scale / 2.6);
+    gameState.heart3.depth = 100;
     // Lives        
-    gameState.livesText = this.add.text((this.cameras.main.width / 2 + 450), 10, 'Lives: 3', { fontSize: '20px', fill: '#000000' });
+    gameState.livesText = this.add.text((this.cameras.main.width / 2 + 300), 10, 'Lives: 3', { fontSize: '20px', fill: '#000000' });
 
     //Kill by waveEnd
     this.physics.add.overlap(gameState.player, waveEnd, () => {
@@ -163,13 +169,13 @@ class GameScene extends Phaser.Scene {
     //Enemies
 
     const enemies = this.physics.add.group();
-
     const enemyList = ["shark", "iceblock"];
 
     function enemyGen() {
       const yCoord = Math.random() * this.cameras.main.height + this.cameras.main.height / 8;
       let randomEnemies = enemyList[Math.floor(Math.random() * enemyList.length)];
-      enemies.create(this.cameras.main.width, yCoord, randomEnemies).setScale(0.3);
+      enemies.create(this.cameras.main.width, yCoord, randomEnemies).setScale(scale / 3);
+      enemies.depth = 50;
     }
     // Enemy loop
     const enemyGenLoop = this.time.addEvent({
@@ -189,11 +195,9 @@ class GameScene extends Phaser.Scene {
 
     // Kill by enemies  
     this.physics.add.overlap(gameState.player, enemies, () => {
-
-      //System for å miste ett hjerte ved hvert 100. liv.
-
+    
+      // //System for å miste ett hjerte ved hvert 100. liv.
       this.cameras.main.shake(100, .006);
-      console.log(gameState.lives);
       gameState.lives += 1;
       gameState.livesText.setText(`Lives: ${gameState.lives}`);
 
