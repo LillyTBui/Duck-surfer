@@ -40,7 +40,13 @@ class GameScene extends Phaser.Scene {
     this.load.image("bgEnd", "../../images/background_end2.png");
     this.load.image("shark", "../../images/shark.png");
     this.load.image("iceblock", "../../images/ice_block.png");
-    this.load.spritesheet('bgWave', '../../images/background_wave.png', {
+
+    //background
+    this.load.spritesheet('bgWave', '../../images/background-new.png', {
+      frameHeight: 1200,
+      frameWidth: 1200,
+    });
+    this.load.spritesheet('bgWave2', '../../images/wave-new.png', {
       frameHeight: 1200,
       frameWidth: 1200,
     });
@@ -75,11 +81,26 @@ class GameScene extends Phaser.Scene {
     });
     gameState.bgWave.anims.play("wave", true);
 
+    //sprite background wave animation 2
+    gameState.bgWave2 = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2, 'bgWave2');
+    this.anims.create({
+        key: "wave2",
+        frames: this.anims.generateFrameNumbers("bgWave2", {
+            start: 0,
+            end: 4
+        }),
+        frameRate: 7,
+        repeat: -1
+    });
+    gameState.bgWave2.anims.play("wave2", true);
+    gameState.bgWave2.depth= 100;
+
     // Scaling
     let scaleX = this.cameras.main.width / gameState.bgWave.width;
     let scaleY = this.cameras.main.height / gameState.bgWave.height;
     let scale = Math.max(scaleX, scaleY);
     gameState.bgWave.setScale(scale).setScrollFactor(0);
+    gameState.bgWave2.setScale(scale).setScrollFactor(0);
 
     // Player animation
     gameState.player = this.physics.add.sprite(400, 100, key);
@@ -140,6 +161,7 @@ class GameScene extends Phaser.Scene {
     gameState.heart2.depth = 100;
     gameState.heart3 = this.add.image(340, 40, 'heart').setScale(scale / 2.6);
     gameState.heart3.depth = 100;
+
     // Lives        
     gameState.livesText = this.add.text((this.cameras.main.width / 2 + 300), 10, 'Lives: 3', { fontSize: '20px', fill: '#000000' });
 
