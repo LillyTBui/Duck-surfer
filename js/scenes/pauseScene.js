@@ -12,7 +12,6 @@ class PauseScene extends Phaser.Scene {
         let scaleY = this.cameras.main.height / gameState.bgWave.height;
         let scale = Math.max(scaleX, scaleY);
 
-        gameState.settings = this.add.image(100, 40, 'iconsettings').setScale(scale / 3.6).setInteractive();
         gameState.play = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 80, 'iconplay').setScale(scale / 3.6).setInteractive();
         gameState.sound = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 , 'iconsound').setScale(scale / 3.6).setInteractive();
         gameState.exit = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 80, 'iconexit').setScale(scale / 3.6).setInteractive();
@@ -48,7 +47,6 @@ class PauseScene extends Phaser.Scene {
         // Button functions and styling shared by ALL buttons
        const pauseButtonList = [
             gameState.sound,
-            gameState.settings,
             gameState.exit,
             gameState.play
         ]

@@ -32,28 +32,11 @@ class EndScene extends Phaser.Scene {
 
 
         // Button functionality;
-        // Hide buttons 
-        var buttonsShowing = true;
-        gameState.play.on('pointerup', () => {
-            if(buttonsShowing){
-                this.scene.bringToTop('GameScene');
-                buttonsShowing = false;
-            } else{ 
-                this.scene.bringToTop('EndScene');
-                buttonsShowing = true;
-            }
-         })  
-         gameState.play.on('pointerover', () => {
-            if(!buttonsShowing){
-                this.scene.bringToTop('EndScene');
-                buttonsShowing = true;
-              }
-         })        
-
+  
   
         // Start new game by pressing play
         gameState.play.on('pointerup', () => {
-			this.scene.stop('PauseScene');
+			this.scene.stop('EndScene');
 			this.scene.start('GameScene');
         })
         

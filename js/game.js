@@ -2,6 +2,7 @@ const gameState = {
   score: 0,
   highScore: 0,
   lives: 3,
+  music: true,
 };
 
 const config = {
