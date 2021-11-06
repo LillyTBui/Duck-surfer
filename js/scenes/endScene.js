@@ -25,11 +25,33 @@ class EndScene extends Phaser.Scene {
         let scaleY = this.cameras.main.height / gameState.bgWave.height;
         let scale = Math.max(scaleX, scaleY);
 
-        gameState.play = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 80, 'iconplay').setScale(scale / 3.6).setInteractive();
-        gameState.sound = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 , 'iconsound').setScale(scale / 3.6).setInteractive();
-        gameState.exit = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 80, 'iconexit').setScale(scale / 3.6).setInteractive();
+        this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 70, 'frame').setScale(scale/3);
+        gameState.gameOver = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 210, 'gameOver').setScale(scale / 4);
+        gameState.play = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 70, 'iconplay').setScale(scale / 3.6).setInteractive();
+        gameState.sound = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 140, 'iconsound').setScale(scale / 3.6).setInteractive();
+        gameState.exit = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 210, 'iconexit').setScale(scale / 3.6).setInteractive();
 
 
+        //show stars
+        let score = JSON.parse(localStorage.getItem("score"));
+
+        if(score == null){
+            score = 0;
+        }
+        else if(score < 500){
+            this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 70, 'star').setScale(scale/2);
+        }
+        else if(score < 1000){
+            this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 70, 'star').setScale(scale/2);
+            this.add.image(this.cameras.main.width/2 - 70, this.cameras.main.height/2 - 50, 'star').setScale(scale/2);
+        }
+        else{
+            this.add.image(this.cameras.main.width/2 - 70, this.cameras.main.height/2 - 50, 'star').setScale(scale/2);
+            this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 70, 'star').setScale(scale/2);
+            this.add.image(this.cameras.main.width/2 + 70, this.cameras.main.height/2 - 50, 'star').setScale(scale/2);
+        }
+
+        this.add.text(this.cameras.main.width/2 - 40, this.cameras.main.height/2, `SCORE: ${score}`, {fill: "#000000"});
 
         // Button functionality;
   

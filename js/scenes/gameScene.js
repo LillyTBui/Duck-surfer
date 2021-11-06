@@ -4,7 +4,9 @@
   La inn kode som fjerner enemies man treffer (281-285)
   Erstattet lives-mekanismen med en som teller ned fra tre og bare viser hjerter (260-280)
   La inn mulighet for å "fange" hjerter i spillet så man kan bygge opp liv igjen (158-197)
-  
+  // 6.11 Lilly
+  lagt til game over ikon, ramme og stjerner ut i fra poengscoren til spilleren i endScene.
+  lagt til ramme i pauseScene
 */
 
 const id = JSON.parse(localStorage.getItem("surfboard"));
@@ -208,6 +210,7 @@ class GameScene extends Phaser.Scene {
         "Oops! You got caught by the wave!",
         { fontSize: "30px", fill: "#000000" }
       );
+      localStorage.setItem("score", JSON.stringify(gameState.score));
       this.scene.pause("GameScene");
       this.scene.launch("EndScene");
       if (gameState.score > highScore) {
@@ -267,6 +270,7 @@ class GameScene extends Phaser.Scene {
       if (gameState.lives < 1) {
           gameState.heart1.setScale(0.001);
           this.add.text(this.cameras.main.width / 3, this.cameras.main.height / 2 - 230, `Ouch! You got hit!`, { fontSize: '30px', fill: '#000000' });
+          localStorage.setItem("score", JSON.stringify(gameState.score));
           this.scene.pause('GameScene')
           this.scene.launch('EndScene')
       }

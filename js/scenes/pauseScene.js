@@ -12,6 +12,7 @@ class PauseScene extends Phaser.Scene {
         let scaleY = this.cameras.main.height / gameState.bgWave.height;
         let scale = Math.max(scaleX, scaleY);
 
+        this.add.image(this.cameras.main.width/2, this.cameras.main.height/2, 'frame').setScale(scale/4);
         gameState.play = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 80, 'iconplay').setScale(scale / 3.6).setInteractive();
         gameState.sound = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 , 'iconsound').setScale(scale / 3.6).setInteractive();
         gameState.exit = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 80, 'iconexit').setScale(scale / 3.6).setInteractive();
