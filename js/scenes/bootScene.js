@@ -25,8 +25,10 @@ class BootScene extends Phaser.Scene {
 
         
         // Playing music by default
+        const volume = JSON.parse(localStorage.getItem("volume"));
         gameState.music = this.sound.add('background_music');
         gameState.music.loop = true;
+        gameState.music.volume = volume;
         gameState.music.play()
 
         // Start game
