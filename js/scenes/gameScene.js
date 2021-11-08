@@ -1,12 +1,10 @@
 /* Change log
-// 4.11 Johannes
-  Fjernet bug som gjorde at EndScene bare ble vist første gang man døde.
-  La inn kode som fjerner enemies man treffer (281-285)
-  Erstattet lives-mekanismen med en som teller ned fra tre og bare viser hjerter (260-280)
-  La inn mulighet for å "fange" hjerter i spillet så man kan bygge opp liv igjen (158-197)
-  // 6.11 Lilly
-  lagt til game over ikon, ramme og stjerner ut i fra poengscoren til spilleren i endScene.
-  lagt til ramme i pauseScene
+// 8.11 Johannes
+  Prøver å låse aspektet så man viser hele bølgen. Tanker?? (game.js linje 14-19)
+  La inn hoppefunksjon over bølgen (så man faller ned på bølgen igjen) (linje 229-240 pluss update())
+  Jobber med en vanskelighetsgrad, men ikke funnet helt ut av det ennå.
+
+
 */
 
 const id = JSON.parse(localStorage.getItem("surfboard"));
@@ -41,6 +39,7 @@ class GameScene extends Phaser.Scene {
       frameHeight: 1200,
       frameWidth: 1200,
     });
+    this.load.image("waveTop", "../../images/waveTop.png");
 
     //sprite
     this.load.spritesheet('sprite1', '../../images/spritesheet-green.png', { frameWidth: 644, frameHeight: 335 });
@@ -49,8 +48,34 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
+    // !Ikke implementert ennå !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // Center values
+    let centerX = this.cameras.main.width / 2
+    let centerY = this.cameras.main.height / 2
+     
     // Cursor input
     gameState.cursors = this.input.keyboard.createCursorKeys();
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // Difficulty level
+    gameState.difficulty = 1;
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // WaveTop
+    const waveTopUpper = this.physics.add.staticGroup();
+    waveTopUpper
+      .create(this.cameras.main.width /2, this.cameras.main.height/11, "waveTop")
+      .setScale(gameState.displayFactor, 5)
+      .refreshBody();
+
+      const waveTopLower = this.physics.add.staticGroup();
+      waveTopLower
+        .create(this.cameras.main.width /2, this.cameras.main.height/5, "waveTop")
+        .setScale(gameState.displayFactor, 2)
+        .refreshBody();
+      
+
+
 
     // waveEnd - platform to the far left that respawns enemies / kills player
     const waveEnd = this.physics.add.staticGroup();
@@ -94,7 +119,7 @@ class GameScene extends Phaser.Scene {
     gameState.bgWave2.setScale(scale).setScrollFactor(0);
 
     // Player animation
-    gameState.player = this.physics.add.sprite(400, 100, key);
+    gameState.player = this.physics.add.sprite(this.cameras.main.width / 4, this.cameras.main.height / 3, key);
     gameState.player.setSize(280, 90);
     gameState.player.setOffset(270, 160);
     gameState.player.setCollideWorldBounds(true);
@@ -167,7 +192,7 @@ class GameScene extends Phaser.Scene {
              }
            // Heart loop
              const heartGenLoop = this.time.addEvent({
-               delay: 10000,
+               delay: 10000*gameState.difficulty,
                callback: heartGen,
                callbackScope: this,
                loop: true,
@@ -198,18 +223,27 @@ class GameScene extends Phaser.Scene {
     heart.disableBody(true, true);
   });
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // WaveTop
+    gameState.jump = false;
+    this.physics.add.overlap(gameState.player, waveTopUpper, () => {
+      gameState.jump = true;
+    });
+    this.physics.add.overlap(gameState.player, waveTopLower, () => {
+      gameState.jump = false;
+    });
 
     //Kill by waveEnd
     this.physics.add.overlap(gameState.player, waveEnd, () => {
       gameState.heart3.destroy();
       gameState.heart2.destroy();
       gameState.heart1.destroy();
-      this.add.text(
-        this.cameras.main.width / 3,
-        this.cameras.main.height / 2 - 230,
-        "Oops! You got caught by the wave!",
-        { fontSize: "30px", fill: "#000000" }
-      );
+      // this.add.text(
+      //   this.cameras.main.width / 3,
+      //   this.cameras.main.height / 2 - 230,
+      //   "Oops! You got caught by the wave!",
+      //   { fontSize: "30px", fill: "#000000" }
+      // );
       localStorage.setItem("score", JSON.stringify(gameState.score));
       this.scene.pause("GameScene");
       this.scene.launch("EndScene");
@@ -217,12 +251,12 @@ class GameScene extends Phaser.Scene {
         highScore = gameState.score;
         localStorage.setItem("highscore", JSON.stringify(highScore));
         gameState.highScoreText.setText(`High score: ${highScore}`);
-        this.add.text(
-          this.cameras.main.width / 3,
-          this.cameras.main.height / 2 - 190,
-          `But YAY! New High Score: ${highScore}`,
-          { fontSize: "30px", fill: "#000000" }
-        );
+        // this.add.text(
+        //   this.cameras.main.width / 3,
+        //   this.cameras.main.height / 2 - 190,
+        //   `But YAY! New High Score: ${highScore}`,
+        //   { fontSize: "30px", fill: "#000000" }
+        // );
       }
     });
 
@@ -239,7 +273,7 @@ class GameScene extends Phaser.Scene {
     }
     // Enemy loop
     const enemyGenLoop = this.time.addEvent({
-      delay: 500,
+      delay: 500 / gameState.difficulty,
       callback: enemyGen,
       callbackScope: this,
       loop: true,
@@ -279,32 +313,50 @@ class GameScene extends Phaser.Scene {
           highScore = gameState.score
           localStorage.setItem("highscore", JSON.stringify(highScore));
           gameState.highScoreText.setText(`High score: ${highScore}`);
-          this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) - 190, `But YAY! New High Score: ${highScore}`, { fontSize: '30px', fill: '#000000' });
+          // this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) - 190, `But YAY! New High Score: ${highScore}`, { fontSize: '30px', fill: '#000000' });
       }
-  });
+    });
   // Disable enemy that has been hit
-  this.physics.add.overlap(gameState.player, enemies, function(player, enemy) {
+    this.physics.add.overlap(gameState.player, enemies, function(player, enemy) {
     enemy.disableBody(true, true);
-  });
+    });
   }
 
 
   update() {
     //Movement + gravity effects to simulate motion of waves
-    if (gameState.cursors.right.isDown) { 
-      gameState.player.x += 3;
-      gameState.player.setGravity(100, 30);
-    } else if (gameState.cursors.left.isDown) {
-      gameState.player.x -= 2;
-      gameState.player.setGravity(-50, -40);
-    } else if (gameState.cursors.up.isDown) {
-      gameState.player.y -= 3;
-      gameState.player.setGravity(-40, -40);
-    } else if (gameState.cursors.down.isDown) {
-      gameState.player.y += 3;
-      gameState.player.setGravity(30, 60);
-    } else {
-      gameState.player.setGravity(-20, -40);
+    if (gameState.jump){ //Jump movement
+      if (gameState.cursors.right.isDown) { 
+        gameState.player.x += 2;
+        gameState.player.setGravity(0*gameState.displayFactor, 40*gameState.displayFactor);
+      } else if (gameState.cursors.left.isDown) {
+        gameState.player.x -= 1;
+        gameState.player.setGravity(0*gameState.displayFactor, 40*gameState.displayFactor);
+      } else if (gameState.cursors.up.isDown) {
+        gameState.player.y -= 1;
+        gameState.player.setGravity(0*gameState.displayFactor, 40*gameState.displayFactor);
+      } else if (gameState.cursors.down.isDown) {
+        gameState.player.y += 4;
+        gameState.player.setGravity(0*gameState.displayFactor, 60*gameState.displayFactor);
+      } else {
+        gameState.player.setGravity(0*gameState.displayFactor, 80*gameState.displayFactor);
+      }
+    } else { //Normal movement
+      if (gameState.cursors.right.isDown) { 
+        gameState.player.x += 3;
+        gameState.player.setGravity(100*gameState.displayFactor, 30*gameState.displayFactor);
+      } else if (gameState.cursors.left.isDown) {
+        gameState.player.x -= 2;
+        gameState.player.setGravity(-50*gameState.displayFactor, -40*gameState.displayFactor);
+      } else if (gameState.cursors.up.isDown) {
+        gameState.player.y -= 3;
+        gameState.player.setGravity(40*gameState.displayFactor, -70*gameState.displayFactor);
+      } else if (gameState.cursors.down.isDown) {
+        gameState.player.y += 3;
+        gameState.player.setGravity(30*gameState.displayFactor, 60*gameState.displayFactor);
+      } else {
+        gameState.player.setGravity(-20*gameState.displayFactor, -40*gameState.displayFactor);
+      }
     }
 
     //Pause game by pressing space
@@ -312,5 +364,5 @@ class GameScene extends Phaser.Scene {
       this.scene.pause("GameScene");
       this.scene.launch("PauseScene");
     }
-  }
+  }d
 }

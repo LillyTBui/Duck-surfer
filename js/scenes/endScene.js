@@ -8,28 +8,31 @@ class EndScene extends Phaser.Scene {
 
 	create() {
         // Creating text on screen
-        // this.add.text(this.cameras.main.width/3, this.cameras.main.height/2 - 160, 'Game over!', {fill: '#FFFFFF', fontSize: '40px'})
+        // this.add.text(this.cameras.main.width/3, centerY - 160, 'Game over!', {fill: '#FFFFFF', fontSize: '40px'})
 
         // Creating buttons on screen
         // gameState.menu = this.add.image(100, 40, 'iconmenu').setScale(.3).setInteractive();
-        // gameState.continue = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 80, 'iconcontinue').setScale(.3).setInteractive();
-        // gameState.sound = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 , 'iconsound').setScale(.3).setInteractive();
-        // gameState.settings = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 80, 'iconsettings').setScale(.3).setInteractive();
-        // gameState.exit = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 160, 'iconexit').setScale(.3).setInteractive();
-        // gameState.howto = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 240, 'iconhowtoplay').setScale(.3).setInteractive();
+        // gameState.continue = this.add.image(centerX, centerY - 80, 'iconcontinue').setScale(.3).setInteractive();
+        // gameState.sound = this.add.image(centerX, centerY , 'iconsound').setScale(.3).setInteractive();
+        // gameState.settings = this.add.image(centerX, centerY + 80, 'iconsettings').setScale(.3).setInteractive();
+        // gameState.exit = this.add.image(centerX, centerY + 160, 'iconexit').setScale(.3).setInteractive();
+        // gameState.howto = this.add.image(centerX, centerY + 240, 'iconhowtoplay').setScale(.3).setInteractive();
             
         // gameState.settings = this.add.image(100, 40, 'iconsettings').setScale(.3).setInteractive();
         
-        //For scaling
+        //For scaling 
         let scaleX = this.cameras.main.width / gameState.bgWave.width;
         let scaleY = this.cameras.main.height / gameState.bgWave.height;
         let scale = Math.max(scaleX, scaleY);
 
-        this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 70, 'frame').setScale(scale/3);
-        gameState.gameOver = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 210, 'gameOver').setScale(scale / 4);
-        gameState.play = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 70, 'iconplay').setScale(scale / 3.6).setInteractive();
-        gameState.sound = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 140, 'iconsound').setScale(scale / 3.6).setInteractive();
-        gameState.exit = this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 + 210, 'iconexit').setScale(scale / 3.6).setInteractive();
+        let centerX = this.cameras.main.width/2;
+        let centerY = this.cameras.main.height/2;
+
+        this.add.image(centerX, centerY + 70, 'frame').setScale(scale/3);
+        gameState.gameOver = this.add.image(centerX, centerY - 150*gameState.displayFactor, 'gameOver').setScale(scale / 4);
+        gameState.play = this.add.image(centerX, centerY + 50*gameState.displayFactor, 'iconplay').setScale(scale / 3.6).setInteractive();
+        gameState.sound = this.add.image(centerX, centerY + 110*gameState.displayFactor, 'iconsound').setScale(scale / 3.6).setInteractive();
+        gameState.exit = this.add.image(centerX, centerY + 170*gameState.displayFactor, 'iconexit').setScale(scale / 3.6).setInteractive();
 
 
         //show stars
@@ -39,19 +42,19 @@ class EndScene extends Phaser.Scene {
             score = 0;
         }
         else if(score < 500){
-            this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 70, 'star').setScale(scale/2);
+            this.add.image(centerX, centerY - 70, 'star').setScale(scale/2);
         }
         else if(score < 1000){
-            this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 70, 'star').setScale(scale/2);
-            this.add.image(this.cameras.main.width/2 - 70, this.cameras.main.height/2 - 50, 'star').setScale(scale/2);
+            this.add.image(centerX, centerY - 70, 'star').setScale(scale/2);
+            this.add.image(centerX - 70, centerY - 50, 'star').setScale(scale/2);
         }
         else{
-            this.add.image(this.cameras.main.width/2 - 70, this.cameras.main.height/2 - 50, 'star').setScale(scale/2);
-            this.add.image(this.cameras.main.width/2, this.cameras.main.height/2 - 70, 'star').setScale(scale/2);
-            this.add.image(this.cameras.main.width/2 + 70, this.cameras.main.height/2 - 50, 'star').setScale(scale/2);
+            this.add.image(centerX - 70, centerY - 50, 'star').setScale(scale/2);
+            this.add.image(centerX, centerY - 70, 'star').setScale(scale/2);
+            this.add.image(centerX + 70, centerY - 50, 'star').setScale(scale/2);
         }
 
-        this.add.text(this.cameras.main.width/2 - 40, this.cameras.main.height/2, `SCORE: ${score}`, {fill: "#000000"});
+        this.add.text(centerX - 40, centerY, `SCORE: ${score}`, {fill: "#000000"});
 
         // Button functionality;
   
