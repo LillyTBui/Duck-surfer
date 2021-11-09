@@ -6,6 +6,8 @@ const gameState = {
   displayFactor: 2,
   jump: false,
   difficulty: 1,
+  fontFamily:
+    'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
 };
 
 const config = {
@@ -14,14 +16,14 @@ const config = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1200*gameState.displayFactor,
-    height: 800*gameState.displayFactor,
+    width: 1200 * gameState.displayFactor,
+    height: 800 * gameState.displayFactor,
   },
   parent: "game-container",
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { x: -20*gameState.displayFactor, y: 0 },
+      gravity: { x: -20 * gameState.displayFactor, y: 0 },
       enableBody: true,
       debug: true,
     },

@@ -16,25 +16,32 @@ const surfGreen = document.querySelector("#surfboard-green");
 const surfGray = document.querySelector("#surfboard-gray");
 const surfPink = document.querySelector("#surfboard-pink");
 
+/* audio */
+const click = document.querySelector("#click");
+
 //clear score
 localStorage.clear("highscore");
 
 start.onclick = () => {
+  click.play();
   menu.style.display = "none";
   carousel.style.display = "block";
 };
 
 howToPlay.onclick = () => {
+  click.play();
   menu.style.display = "none";
   howToPlayBlock.style.display = "flex";
 };
 
 settings.onclick = () => {
+  click.play();
   menu.style.display = "none";
   settingsBlock.style.display = "flex";
 };
 
 credits.onclick = () => {
+  click.play();
   menu.style.display = "none";
   creditsBlock.style.display = "flex";
 };
@@ -42,6 +49,7 @@ credits.onclick = () => {
 for (buttons of backBtn) {
   buttons.addEventListener("click", () => {
     menu.style.display = "flex";
+    click.play();
     creditsBlock.style.display = "none";
     settingsBlock.style.display = "none";
     howToPlayBlock.style.display = "none";

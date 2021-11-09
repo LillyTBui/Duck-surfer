@@ -132,7 +132,7 @@ class GameScene extends Phaser.Scene {
 
     //Settings button
     gameState.settings = this.add
-      .image(100, 40, "iconsettings")
+      .image(100, 40, "iconpause")
       .setScale(scale / 3.6)
       .setInteractive();
     gameState.settings.depth = 100;
@@ -149,6 +149,7 @@ class GameScene extends Phaser.Scene {
     });
     gameState.settings.on("pointerup", () => {
       gameState.settings.setScale(scale / 3.6);
+      gameState.clickEffect.play();
       this.scene.pause("GameScene");
       this.scene.launch("PauseScene");
     });
@@ -159,11 +160,13 @@ class GameScene extends Phaser.Scene {
       highScore = 0;
     }
     gameState.scoreText = this.add.text(this.cameras.main.width / 2 - 100, 10, "Score: 0", {
-      fontSize: "20px",
+      fontFamily: gameState.fontFamily,
+      fontSize: "30px",
       fill: "#000000",
     });
     gameState.highScoreText = this.add.text(this.cameras.main.width / 2 + 100, 10, `High score: ${highScore}`, {
-      fontSize: "20px",
+      fontFamily: gameState.fontFamily,
+      fontSize: "30px",
       fill: "#000000",
     });
 
