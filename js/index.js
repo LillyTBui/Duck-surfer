@@ -65,6 +65,7 @@ surfPink.addEventListener("click", toGame);
 /* music settings */
 const backgroundSong = document.querySelector("#backgroundSong");
 let volume = document.querySelector(".volume");
+localStorage.setItem("volume", JSON.stringify(volume.value));
 
 window.onclick = function () {
   backgroundSong.play();
@@ -72,4 +73,5 @@ window.onclick = function () {
 
 volume.addEventListener("input", function () {
   backgroundSong.volume = volume.value;
+  localStorage.setItem("volume", JSON.stringify(volume.value));
 });

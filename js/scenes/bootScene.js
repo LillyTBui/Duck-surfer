@@ -13,6 +13,9 @@ class BootScene extends Phaser.Scene {
         // this.load.image('iconcontinue', '../../images/btn-continue.png');
         this.load.image('iconplay', '../../images/icon-play.png');
         this.load.image('heart', '../../images/heart.png');
+        this.load.image('gameOver', '../../images/game-over.png');
+        this.load.image('star', '../../images/star.png');
+        this.load.image('frame', '../../images/frame.png');
         this.load.audio('background_music', '../../media/background.mp3'); //ADD '../../media/background.wav'
 
 
@@ -22,8 +25,10 @@ class BootScene extends Phaser.Scene {
 
         
         // Playing music by default
+        const volume = JSON.parse(localStorage.getItem("volume"));
         gameState.music = this.sound.add('background_music');
         gameState.music.loop = true;
+        gameState.music.volume = volume;
         gameState.music.play()
 
         // Start game
