@@ -4,7 +4,15 @@
   La inn hoppefunksjon over bølgen (så man faller ned på bølgen igjen) (linje 229-240 pluss update())
   Jobber med en vanskelighetsgrad, men ikke funnet helt ut av det ennå.
 
+// 9.11 lilly
+  lagt til lyd på knappene
+  index knappene og brettene blir litt større når man hover over dem
+  byttet audio type fra ogg til mp3
+  fjernet oppløsning fra index siden
+  lagt til samme font family i spill teksten som blir brukt på index siden
 
+  NB! klikke lyden funker også på exit knappene men siden blir 
+  redirektet til index siden så fort at den ikke blir spilt av
 */
 
 const id = JSON.parse(localStorage.getItem("surfboard"));
