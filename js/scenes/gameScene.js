@@ -35,6 +35,9 @@ class GameScene extends Phaser.Scene {
     this.load.image("bgEnd", "../../images/background_end2.png");
     this.load.image("shark", "../../images/shark.png");
     this.load.image("iceblock", "../../images/ice_block.png");
+    this.load.image("ink", "../../../images/ink.png");
+    this.load.image("octopus", "../../images/octopus.png");
+    this.load.image("plastic-bag", "../../images/plastic bag.png");
 
     //background
     this.load.spritesheet("bgWave", "../../images/test-background.png", {
@@ -270,8 +273,73 @@ class GameScene extends Phaser.Scene {
 
     //Enemies
 
+    //octopuses
+    const octopuses = this.physics.add.group();
+    const ink = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, "ink");
+    ink.depth = 400;
+    ink.visible = false;
+
+    function octopusGen() {
+      const yCoord = Math.random() * this.cameras.main.height + this.cameras.main.height / 8;
+      octopuses.create(this.cameras.main.width, yCoord, "octopus").setScale(scale / 3);
+      octopuses.depth = 50;
+    }
+
+    const octopusGenLoop = this.time.addEvent({
+      delay: 10000 * gameState.difficulty,
+      callback: octopusGen,
+      callbackScope: this,
+      loop: true,
+    });
+
+    this.physics.add.overlap(octopuses, waveEnd, function (octopus) {
+      octopus.destroy();
+      gameState.score += 10;
+      gameState.scoreText.setText(`Score: ${gameState.score}`);
+    });
+
+    this.physics.add.overlap(gameState.player, octopuses, () => {
+      this.cameras.main.shake(200, 0.009);
+
+      gameState.lives -= 1;
+
+      if (gameState.lives < 3) {
+        gameState.heart3.setScale(0.001);
+      }
+      if (gameState.lives < 2) {
+        gameState.heart2.setScale(0.001);
+      }
+      if (gameState.lives < 1) {
+        gameState.heart1.setScale(0.001);
+        this.add.text(this.cameras.main.width / 3, this.cameras.main.height / 2 - 230, `Ouch! You got hit!`, {
+          fontSize: "30px",
+          fill: "#000000",
+        });
+        localStorage.setItem("score", JSON.stringify(gameState.score));
+        this.scene.pause("GameScene");
+        this.scene.launch("EndScene");
+      }
+
+      if (gameState.score > highScore) {
+        highScore = gameState.score;
+        localStorage.setItem("highscore", JSON.stringify(highScore));
+        gameState.highScoreText.setText(`High score: ${highScore}`);
+        // this.add.text(this.cameras.main.width / 3, (this.cameras.main.height / 2) - 190, `But YAY! New High Score: ${highScore}`, { fontSize: '30px', fill: '#000000' });
+      }
+    });
+
+    this.physics.add.overlap(gameState.player, octopuses, function (player, octopus) {
+      octopus.disableBody(true, true);
+      ink.visible = true;
+      setInterval(hideInk, 5000);
+    });
+
+    function hideInk() {
+      ink.visible = false;
+    }
+
     const enemies = this.physics.add.group();
-    const enemyList = ["shark", "iceblock"];
+    const enemyList = ["shark", "plastic-bag"];
 
     function enemyGen() {
       const yCoord = Math.random() * this.cameras.main.height + this.cameras.main.height / 8;
