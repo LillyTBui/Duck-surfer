@@ -1,125 +1,112 @@
-.homepage {
-  background-image: url("../images/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.homepage{
+    background-image: url("../images/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.logo {
-  max-width: 300px;
+.logo{
+    max-width: 300px;
 }
 
-.menu-container {
-  background-color: #f9d748;
-  padding: 5px;
-  margin-top: 50px;
-  border-radius: 25px;
+.menu-container{
+    background-color: #F9D748;
+    padding: 5px;
+    margin-top: 50px;
+    border-radius: 25px;
 }
 
-.menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 20px;
+.menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
 }
 
-.box {
-  background-color: #e89c3c;
-  border-radius: 25px;
+.box{
+    background-color: #E89C3C;
+    border-radius: 25px;
 }
 
 /* carousel */
 
-#carousel-container {
-  display: none;
+#carousel-container{
+    display: none;
 }
 
-.carousel-inner {
-  display: flex;
-  padding: 20px;
-  justify-content: space-between;
+.carousel-inner{
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
 }
 
-.carousel-inner img {
-  margin: auto;
+.carousel-inner img{
+    margin: auto;
 }
 
 /* block */
 
-.block {
-  max-width: 350px;
-  padding: 20px 10px;
-  flex-direction: column;
+.block{
+    max-width: 350px;
+    padding: 20px 10px;
+    flex-direction: column;
 }
 
-.block h1 {
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
+.block h1{
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
 }
 
-.block p {
-  margin: 10px;
+.block p{
+    margin: 10px;
 }
 
 /* how to play */
 
-.how-to-play {
-  display: none;
+.how-to-play{
+    display: none;
 }
 
 /* settings */
 
-.settings {
-  display: none;
-  padding: 30px;
+.settings{
+    display: none;
+    padding: 30px;
 }
 
-.settings h2 {
-  font-size: 1.2em;
+.settings h2{
+    font-size: 1.2em;
 }
 
-.settings-div {
-  margin: 10px 0px;
+.settings-div{
+    margin: 10px 0px;
 }
 
-.settings .btn-back {
-  margin-top: 20px;
+.settings .btn-back{
+    margin-top: 20px;
 }
 
 /* credits */
 
-.credits {
-  display: none;
+.credits{
+    display: none;
 }
+
 
 /* buttons */
 
-.btn {
-  max-width: 150px;
+.btn{
+    max-width: 150px;
 }
 
-.btn:hover {
-  transform: scale(1.15);
-}
-
-.btn-back {
-  max-width: 100px;
-  margin: 10px auto 0px auto;
-}
-
-.btn-back:hover {
-  transform: scale(1.15);
-}
-
-#surfboard-green:hover,
-#surfboard-gray:hover,
-#surfboard-pink:hover {
-  transform: scale(1.08);
+.btn-back{
+    max-width: 100px;
+    margin: 10px auto 0px auto;
 }
