@@ -12,13 +12,29 @@ class PauseScene extends Phaser.Scene {
     let centerX = this.cameras.main.width / 2;
     let centerY = this.cameras.main.height / 2;
 
+    //Set Music icon
+    let soundIcon;
+    setMusicIcon();
+
+    function setMusicIcon() {
+      if (gameState.music.volume == 0) {
+        soundIcon = "no-sound";
+      } else if (gameState.music.volume > 0 && gameState.music.volume <= 0.34) {
+        soundIcon = "low-sound";
+      } else if (gameState.music.volume > 0.34 && gameState.music.volume <= 0.67) {
+        soundIcon = "iconsound";
+      } else if (gameState.music.volume > 0.67 && gameState.music.volume <= 1) {
+        soundIcon = "high-sound";
+      }
+    }
+
     this.add.image(centerX, centerY, "frame").setScale(scale / 4);
     gameState.play = this.add
       .image(centerX, centerY - 60 * gameState.displayFactor, "iconplay")
       .setScale(scale / 3.6)
       .setInteractive();
     gameState.sound = this.add
-      .image(centerX, centerY, "iconsound")
+      .image(centerX, centerY, soundIcon)
       .setScale(scale / 3.6)
       .setInteractive();
     gameState.exit = this.add
@@ -34,17 +50,23 @@ class PauseScene extends Phaser.Scene {
       this.scene.resume("GameScene");
     });
 
-    // Music: switch on or off
-    var musicPlaying = true;
+    // Music settings:
+    gameState.sound.on("pointerdown", () => {
+      if (soundIcon == "no-sound") {
+        gameState.music.volume = 0.33;
+      } else if (soundIcon == "low-sound") {
+        gameState.music.volume = 0.66;
+      } else if (soundIcon == "iconsound") {
+        gameState.music.volume = 1;
+      } else if (soundIcon == "high-sound") {
+        gameState.music.volume = 0;
+      }
+    });
+
     gameState.sound.on("pointerup", () => {
       gameState.clickEffect.play();
-      if (musicPlaying) {
-        gameState.music.pause();
-        musicPlaying = false;
-      } else {
-        gameState.music.resume();
-        musicPlaying = true;
-      }
+      setMusicIcon();
+      gameState.sound.setTexture(soundIcon);
     });
 
     // Exit
