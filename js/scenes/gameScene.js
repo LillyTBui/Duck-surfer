@@ -133,7 +133,7 @@ class GameScene extends Phaser.Scene {
       key: "wave",
       frames: this.anims.generateFrameNumbers("bgWave", {
         start: 0,
-        end: 6,
+        end: 4,
       }),
       frameRate: 7,
       repeat: -1,
@@ -223,7 +223,7 @@ class GameScene extends Phaser.Scene {
 
     this.anims.create({
       key: "movement",
-      frames: this.anims.generateFrameNumbers(key, { start: 0, end: 5 }),
+      frames: this.anims.generateFrameNumbers(key, { start: 0, end: 4 }),
       frameRate: 9,
       repeat: -1,
     });
