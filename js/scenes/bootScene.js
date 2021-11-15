@@ -18,6 +18,10 @@ class BootScene extends Phaser.Scene {
     this.load.image("frame", "../../images/frame.png");
     this.load.audio("background_music", "../../media/background.mp3");
     this.load.audio("click-sound", "../../media/select-click.mp3");
+    this.load.audio("splash-sound", "../../media/splash-effect.mp3");
+    this.load.audio("positive-sound", "../../media/positive-effect.mp3");
+    this.load.audio("hit-sound", "../../media/hit-effect.mp3");
+    this.load.audio("winning-sound", "../../media/winning-sound.mp3");
   }
 
   create() {
@@ -28,8 +32,12 @@ class BootScene extends Phaser.Scene {
     gameState.music.volume = volume;
     gameState.music.play();
 
-    // Add click effect
+    // Add sound effects:
     gameState.clickEffect = this.sound.add("click-sound");
+    gameState.splashSound = this.sound.add("splash-sound");
+    gameState.positiveSound = this.sound.add("positive-sound");
+    gameState.hitSound = this.sound.add("hit-sound");
+    gameState.winningSound = this.sound.add("winning-sound");
 
     // Start game
     this.scene.start("GameScene");

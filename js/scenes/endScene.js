@@ -62,6 +62,7 @@ class EndScene extends Phaser.Scene {
       this.add.image(centerX, centerY - 120, "star").setScale(scale / 2);
     }
 
+    gameState.winningSound.play();
     this.add.text(centerX - 90, centerY, `SCORE: ${score}`, {
       fontFamily: gameState.fontFamily,
       fontSize: "30px",

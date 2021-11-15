@@ -1,19 +1,4 @@
 /* Change log
-// 8.11 Johannes
-  Prøver å låse aspektet så man viser hele bølgen. Tanker?? (game.js linje 14-19)
-  La inn hoppefunksjon over bølgen (så man faller ned på bølgen igjen) (linje 229-240 pluss update())
-  Jobber med en vanskelighetsgrad, men ikke funnet helt ut av det ennå.
-
-// 9.11 lilly
-  lagt til lyd på knappene
-  index knappene og brettene blir litt større når man hover over dem
-  byttet audio type fra ogg til mp3
-  fjernet oppløsning fra index siden
-  lagt til samme font family i spill teksten som blir brukt på index siden
- 
-  NB! klikke lyden funker også på exit knappene men siden blir 
-  redirektet til index siden så fort at den ikke blir spilt av
-
 // 11.11 Johannes
   Bygget videre på NewEnemies (men sjekke om det funker som det skal)  -  nye lydknapper er ikke merget
   Lagt til lyd på pauseknappen i GameScene
@@ -27,6 +12,8 @@
 // 15.11 Lilly
   lagt til 3 nye farger av plastikk bag, som heter: "yellow-bag", "brown-bag", "gray.bag"
   test ut hvilken av fargene dere synes passer best, eventuelt foreslå en farge
+  lagt til effekt lyder til hindringer, hjerte og blekksprut
+  lagt til forslag til winne lyd 
 */
 
 const id = JSON.parse(localStorage.getItem("surfboard"));
@@ -298,6 +285,8 @@ class GameScene extends Phaser.Scene {
     // Capture hearts
     this.physics.add.overlap(gameState.player, hearts, () => {
       this.cameras.main.shake(200, 0.003);
+      gameState.positiveSound.play();
+
       if (gameState.lives == 3) {
         gameState.score += heartPoints;
         gameState.scoreText.setText(`Score: ${gameState.score}`);
@@ -354,6 +343,7 @@ class GameScene extends Phaser.Scene {
     //Hit enemy logic:
     this.physics.add.overlap(gameState.player, enemies, () => {
       this.cameras.main.shake(200, 0.009);
+      gameState.hitSound.play();
 
       gameState.lives -= 1;
       // gameState.livesText.setText(`Lives: ${gameState.lives}`);
@@ -416,6 +406,7 @@ class GameScene extends Phaser.Scene {
 
     this.physics.add.overlap(gameState.player, octopuses, () => {
       this.cameras.main.shake(200, 0.009);
+      gameState.splashSound.play();
 
       gameState.lives -= 1;
 
