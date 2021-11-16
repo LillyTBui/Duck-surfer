@@ -85,3 +85,7 @@ volume.addEventListener("input", function () {
   backgroundSong.volume = volume.value;
   localStorage.setItem("volume", JSON.stringify(volume.value));
 });
+
+// Difficulty settings
+let difficultySetting = document.querySelector(".difficultySetting");
+localStorage.setItem("difficultySetting", JSON.stringify(difficultySetting.value));
