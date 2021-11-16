@@ -41,8 +41,8 @@ class BootScene extends Phaser.Scene {
 
     // Player difficulty level settings
     const diffSetting = JSON.parse(localStorage.getItem("difficultySetting"));
+    console.log(diffSetting);
     gameState.difficultySetting = diffSetting;
-
 
     // Start game
     this.scene.start("GameScene");
