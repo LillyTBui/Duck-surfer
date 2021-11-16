@@ -14,6 +14,10 @@
   test ut hvilken av fargene dere synes passer best, eventuelt foreslå en farge
   lagt til effekt lyder til hindringer, hjerte og blekksprut
   lagt til forslag til winne lyd 
+
+// 16.11 Lilly
+  la til ulike vinnelyder ut i fra stjernene
+  la til new highscore i slutt scenen med applause
 */
 
 const id = JSON.parse(localStorage.getItem("surfboard"));
