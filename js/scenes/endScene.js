@@ -29,45 +29,63 @@ class EndScene extends Phaser.Scene {
       }
     }
 
-    this.add.image(centerX, centerY + 110, "frame").setScale(scale / 3.2);
+    this.add.image(centerX, centerY + 110, "frame").setScale(scale / 2.8);
     gameState.gameOver = this.add
       .image(centerX, centerY - 200 * gameState.displayFactor, "gameOver")
       .setScale(scale / 5);
     gameState.play = this.add
-      .image(centerX, centerY + 50 * gameState.displayFactor, "iconplay")
+      .image(centerX, centerY + 80 * gameState.displayFactor, "iconplay")
       .setScale(scale / 3.6)
       .setInteractive();
     gameState.sound = this.add
-      .image(centerX, centerY + 110 * gameState.displayFactor, soundIcon)
+      .image(centerX, centerY + 140 * gameState.displayFactor, soundIcon)
       .setScale(scale / 3.6)
       .setInteractive();
     gameState.exit = this.add
-      .image(centerX, centerY + 170 * gameState.displayFactor, "iconexit")
+      .image(centerX, centerY + 200 * gameState.displayFactor, "iconexit")
       .setScale(scale / 3.6)
       .setInteractive();
 
     //Show stars
     let score = JSON.parse(localStorage.getItem("score"));
+    let highscore = JSON.parse(localStorage.getItem("highscore"));
 
     if (score == null) {
       score = 0;
     } else if (score < 10000) {
       this.add.image(centerX, centerY - 80, "star").setScale(scale / 2);
+      gameState.smallWinningSound.play();
     } else if (score < 20000) {
       this.add.image(centerX - 60, centerY - 80, "star").setScale(scale / 2);
       this.add.image(centerX + 60, centerY - 80, "star").setScale(scale / 2);
+      gameState.winningSound.play();
     } else {
       this.add.image(centerX - 100, centerY - 80, "star").setScale(scale / 2);
       this.add.image(centerX + 100, centerY - 80, "star").setScale(scale / 2);
       this.add.image(centerX, centerY - 120, "star").setScale(scale / 2);
+      gameState.bigWinningSound.play();
     }
 
-    gameState.winningSound.play();
-    this.add.text(centerX - 90, centerY, `SCORE: ${score}`, {
-      fontFamily: gameState.fontFamily,
-      fontSize: "30px",
-      fill: "#000000",
-    });
+    if (score >= highscore && score > 0) {
+      gameState.applause.play();
+      this.add.text(centerX - 120, centerY, "NEW HIGH SCORE!", {
+        fontFamily: gameState.fontFamily,
+        fontSize: "32px",
+        fill: "#000000",
+      });
+
+      this.add.text(centerX - 80, centerY + 50, `SCORE: ${score}`, {
+        fontFamily: gameState.fontFamily,
+        fontSize: "30px",
+        fill: "#000000",
+      });
+    } else {
+      this.add.text(centerX - 80, centerY + 20, `SCORE: ${score}`, {
+        fontFamily: gameState.fontFamily,
+        fontSize: "30px",
+        fill: "#000000",
+      });
+    }
 
     // Button functionality;
 

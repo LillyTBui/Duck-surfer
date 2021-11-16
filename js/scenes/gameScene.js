@@ -361,6 +361,7 @@ class GameScene extends Phaser.Scene {
         //   fontSize: "30px",
         //   fill: "#000000",
         // });
+
         localStorage.setItem("score", JSON.stringify(gameState.score));
         this.scene.pause("GameScene");
         this.scene.launch("EndScene");
@@ -422,6 +423,7 @@ class GameScene extends Phaser.Scene {
           fontSize: "30px",
           fill: "#000000",
         });
+
         localStorage.setItem("score", JSON.stringify(gameState.score));
         this.scene.pause("GameScene");
         this.scene.launch("EndScene");
