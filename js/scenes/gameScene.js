@@ -10,6 +10,22 @@
   Lagt inn struktur for at spiller kan velge vanskelighetsgrad - !MEN den må linkes opp med spillerens valg.
   ->Lilly, vet du hvordan man fikser dette? variabelen er gameState.difficultySetting;
 
+// 16.11 Lilly
+  På index siden:
+  fjernet vanskelighetsgrad fra settings og har planker i stedenfor
+  har satt vanskelighetsgrad til:
+  - easy = 1
+  - medium = 2
+  - hard = 3
+  disse kan du justere på index.js fra l.94 
+  som default er difficultyChoice satt til 2 (medium) linje 94, hvis spilleren ikke velger 
+  vanskelighetsgrad selv.
+
+  la til gameState.splashSound.play(); l.365 i gameScene
+
+  lagt til de nye lydeffektene i bootScene.
+  lagt til new highscore tekst, applause lyd og 3 ulike vinne lyder 
+  l.50 - l.98 i endScene.js
 */
 
 // Player surfboard
@@ -77,7 +93,6 @@ class GameScene extends Phaser.Scene {
     var octopusPoints = 200;
     gameState.difficulty = 1 * gameState.difficultySetting;
 
-
     //***Background***'
     // WaveTop & Sky
     // Sky element -> player jump mechanics ON
@@ -95,10 +110,7 @@ class GameScene extends Phaser.Scene {
 
     // waveEnd - platform to the far left that respawns enemies / kills player
     const waveEnd = this.physics.add.staticGroup();
-    waveEnd
-      .create(-14, centerY, "bgEnd")
-      .setScale(1, 1.5)
-      .refreshBody();
+    waveEnd.create(-14, centerY, "bgEnd").setScale(1, 1.5).refreshBody();
 
     //Wave2 Top barrier -> in order to make the camera shake if you go "thorugh" the wave.
     const waveTwoTop = this.physics.add.staticGroup();
@@ -196,7 +208,6 @@ class GameScene extends Phaser.Scene {
     ink.depth = 400;
     ink.visible = false;
 
-
     //***Player***
     // Player sprite creation and config
     gameState.player = this.physics.add.sprite(width / 4, height / 3, key);
@@ -205,8 +216,8 @@ class GameScene extends Phaser.Scene {
       .setOffset(270, 160)
       .setBounce(0.2)
       .setCollideWorldBounds(true)
-      .setScale(scale / 2.5).setScrollFactor(0)
-      .depth = 90;
+      .setScale(scale / 2.5)
+      .setScrollFactor(0).depth = 90;
 
     // Player sprite animation
     this.anims.create({
@@ -216,7 +227,6 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
     gameState.player.anims.play("movement", true);
-
 
     // WaveTop interaction
     gameState.jump = false;
@@ -246,7 +256,6 @@ class GameScene extends Phaser.Scene {
         gameState.highScoreText.setText(`High score: ${highScore}`);
       }
     });
-
 
     //***Gameplay hearts***
     // Create hearts
@@ -286,12 +295,11 @@ class GameScene extends Phaser.Scene {
     this.physics.add.overlap(gameState.player, hearts, function (player, heart) {
       heart.disableBody(true, true);
     });
-    
+
     // Remove hearts that leave scene
     this.physics.add.overlap(hearts, waveEnd, function (heart) {
       heart.destroy();
-    });    
-    
+    });
 
     //***Gameplay Enemies***
     //Create Rare octopuses
@@ -309,7 +317,7 @@ class GameScene extends Phaser.Scene {
     });
     // Create other enemies
     const enemies = this.physics.add.group();
-    const enemyList = ["shark", "plastic-bag-gray","plastic-bag-blue", "plastic-bag-yellow"];
+    const enemyList = ["shark", "plastic-bag-gray", "plastic-bag-blue", "plastic-bag-yellow"];
     function enemyGen() {
       const yCoord = Math.random() * height + height / 8;
       let randomEnemies = enemyList[Math.floor(Math.random() * enemyList.length)];
@@ -354,46 +362,37 @@ class GameScene extends Phaser.Scene {
     //Ink splash event for octopuses that are hit
     this.physics.add.overlap(gameState.player, octopuses, function () {
       ink.visible = true;
+      gameState.splashSound.play();
       setInterval(hideInk, 5000);
     });
     function hideInk() {
       ink.visible = false;
     }
-    
+
     // Disable all enemies that are hit
     this.physics.add.overlap(gameState.player, [enemies, octopuses], function (player, enemy) {
       enemy.disableBody(true, true);
     });
 
-
-//DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
-gameState.diffText = this.add.text(centerX + 400, 0, `Difficulty: ${gameState.difficultySetting}`, {
-  fontFamily: gameState.fontFamily,
-  fontSize: "30px",
-  fill: "#000000",
-});
-gameState.diffSettingsText = this.add.text(centerX + 400, 30, `DiffSETT: ${gameState.difficultySetting}`, {
-  fontFamily: gameState.fontFamily,
-  fontSize: "30px",
-  fill: "#000000",
-});
-//DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-
-
-
-
-
+    //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    gameState.diffText = this.add.text(centerX + 400, 0, `Difficulty: ${gameState.difficultySetting}`, {
+      fontFamily: gameState.fontFamily,
+      fontSize: "30px",
+      fill: "#000000",
+    });
+    gameState.diffSettingsText = this.add.text(centerX + 400, 30, `DiffSETT: ${gameState.difficultySetting}`, {
+      fontFamily: gameState.fontFamily,
+      fontSize: "30px",
+      fill: "#000000",
+    });
+    //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // Remove enemies that leave scene
     // Extra points for rare octopuses
     this.physics.add.overlap(octopuses, waveEnd, function () {
-         gameState.score += octopusPoints;
-       });
-    //Remove event  
+      gameState.score += octopusPoints;
+    });
+    //Remove event
     this.physics.add.overlap([enemies, octopuses], waveEnd, function (enemy) {
       enemy.destroy();
       //Avoiding enemies adds score
@@ -405,33 +404,15 @@ gameState.diffSettingsText = this.add.text(centerX + 400, 30, `DiffSETT: ${gameS
       enemyGenLoop.delay = enemyBaseDelay / gameState.difficulty;
       octopusGenLoop.delay = octopusBaseDelay / gameState.difficulty;
 
-
-
-
-
-
-
-//DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-gameState.diffText.setText(
-  `Difficulty: ${gameState.difficulty} Hdel: ${heartGenLoop.delay} EnDel:${enemyGenLoop.delay} HP:${heartPoints} EP${enemyPoints}`
-);
-gameState.diffText.depth = 50;
-gameState.diffSettingsText.setText(`DiffSETT: ${gameState.difficultySetting}`);
-//DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-      });
+      //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      gameState.diffText.setText(
+        `Difficulty: ${gameState.difficulty} Hdel: ${heartGenLoop.delay} EnDel:${enemyGenLoop.delay} HP:${heartPoints} EP${enemyPoints}`
+      );
+      gameState.diffText.depth = 50;
+      gameState.diffSettingsText.setText(`DiffSETT: ${gameState.difficultySetting}`);
+      //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    });
   }
-
-
-
-
-
-
-
-
 
   update() {
     //Movement + gravity effects to simulate motion of waves

@@ -91,7 +91,7 @@ volume.addEventListener("input", function () {
 const easy = document.querySelector("#easy");
 const medium = document.querySelector("#medium");
 const hard = document.querySelector("#hard");
-let difficultyChoice;
+let difficultyChoice = 2;
 
 easy.onclick = function () {
   difficultyChoice = 1;
