@@ -46,25 +46,46 @@ class EndScene extends Phaser.Scene {
       .setScale(scale / 3.6)
       .setInteractive();
 
-    //Play winning sound and show score
+    //Play winning sound and show score + difficulty level
     let score = JSON.parse(localStorage.getItem("score"));
     let highscore = JSON.parse(localStorage.getItem("highscore"));
+    let diff = JSON.parse(localStorage.getItem("difficultySetting"));
+    let difficultyLevel = "";
+    if (diff == 0.5){
+      difficultyLevel = "EASY"
+    } else if( diff == 1.5){
+      difficultyLevel = "HARD"
+    } else {
+      difficultyLevel = "MEDIUM"
+    }
 
     if (score >= highscore && score > 0) {
       gameState.applause.play();
-      this.add.text(centerX - 120, centerY, "NEW HIGH SCORE!", {
+      this.add.text(centerX - 120, centerY -50, "NEW HIGH SCORE!", {
         fontFamily: gameState.fontFamily,
         fontSize: "32px",
         fill: "#000000",
       });
 
-      this.add.text(centerX - 80, centerY + 50, `SCORE: ${score}`, {
+      this.add.text(centerX - 120, centerY, `DIFFICULTY: ${difficultyLevel}`, {
+        fontFamily: gameState.fontFamily,
+        fontSize: "32px",
+        fill: "#000000",
+      });
+
+      this.add.text(centerX - 115, centerY + 50, `SCORE: ${score}`, {
         fontFamily: gameState.fontFamily,
         fontSize: "30px",
         fill: "#000000",
       });
     } else {
-      this.add.text(centerX - 80, centerY + 20, `SCORE: ${score}`, {
+      this.add.text(centerX - 120, centerY, `DIFFICULTY: ${difficultyLevel}`, {
+        fontFamily: gameState.fontFamily,
+        fontSize: "32px",
+        fill: "#000000",
+      });
+
+      this.add.text(centerX - 90, centerY + 50, `SCORE: ${score}`, {
         fontFamily: gameState.fontFamily,
         fontSize: "30px",
         fill: "#000000",
@@ -77,21 +98,21 @@ class EndScene extends Phaser.Scene {
       score = 0;
     } else if (score < 10000) {
       // Center
-      gameState.starCenter = this.add.image(centerX, centerY - 80, "star").setScale(0.1);
+      gameState.starCenter = this.add.image(centerX, centerY - 110, "star").setScale(0.1);
       gameState.activeStars.push(gameState.starCenter);
       gameState.smallWinningSound.play();
     } else if (score < 20000) {
       // Left and right
-      gameState.starLeft = this.add.image(centerX - 60, centerY - 80, "star").setScale(0.1);
-      gameState.starRight = this.add.image(centerX + 60, centerY - 80, "star").setScale(0.1);
+      gameState.starLeft = this.add.image(centerX - 60, centerY - 110, "star").setScale(0.1);
+      gameState.starRight = this.add.image(centerX + 60, centerY - 110, "star").setScale(0.1);
       gameState.activeStars.push(gameState.starLeft);
       gameState.activeStars.push(gameState.starRight);
       gameState.winningSound.play();
     } else {
       // Left, right and center
-      gameState.starLeft = this.add.image(centerX - 100, centerY - 80, "star").setScale(0.1);
-      gameState.starRight = this.add.image(centerX + 100, centerY - 80, "star").setScale(0.1);
-      gameState.starCenter = this.add.image(centerX, centerY - 120, "star").setScale(0.1);
+      gameState.starLeft = this.add.image(centerX - 100, centerY - 110, "star").setScale(0.1);
+      gameState.starRight = this.add.image(centerX + 100, centerY - 110, "star").setScale(0.1);
+      gameState.starCenter = this.add.image(centerX, centerY - 150, "star").setScale(0.1);
       gameState.activeStars.push(gameState.starLeft);
       gameState.activeStars.push(gameState.starRight);
       gameState.activeStars.push(gameState.starCenter);
