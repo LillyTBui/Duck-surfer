@@ -91,10 +91,10 @@ volume.addEventListener("input", function () {
 const easy = document.querySelector("#easy");
 const medium = document.querySelector("#medium");
 const hard = document.querySelector("#hard");
-let difficultyChoice = 2;
+let difficultyChoice = 1;
 
 easy.onclick = function () {
-  difficultyChoice = 1;
+  difficultyChoice = 0.5;
   click.play();
   easy.style.opacity = "1";
   medium.style.opacity = "0.5";
@@ -102,7 +102,7 @@ easy.onclick = function () {
 };
 
 medium.onclick = function () {
-  difficultyChoice = 2;
+  difficultyChoice = 1;
   click.play();
   medium.style.opacity = "1";
   easy.style.opacity = "0.5";
@@ -110,7 +110,7 @@ medium.onclick = function () {
 };
 
 hard.onclick = function () {
-  difficultyChoice = 3;
+  difficultyChoice = 1.5;
   click.play();
   hard.style.opacity = "1";
   easy.style.opacity = "0.5";
