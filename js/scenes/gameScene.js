@@ -26,6 +26,14 @@
   lagt til de nye lydeffektene i bootScene.
   lagt til new highscore tekst, applause lyd og 3 ulike vinne lyder 
   l.50 - l.98 i endScene.js
+  
+  //17.11 Johannes
+Oppdaterte vanskelighetsgrad til:
+ - easy = 0.5 
+- medium = 1 (samme for standard)
+- hard = 1.5 
+Dette fungerer med oppdateringsmekanismen for økende vanskelighetsgrad utover i spillet
+
 */
 
 // Player surfboard
@@ -374,19 +382,6 @@ class GameScene extends Phaser.Scene {
       enemy.disableBody(true, true);
     });
 
-    //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    gameState.diffText = this.add.text(centerX + 400, 0, `Difficulty: ${gameState.difficultySetting}`, {
-      fontFamily: gameState.fontFamily,
-      fontSize: "30px",
-      fill: "#000000",
-    });
-    gameState.diffSettingsText = this.add.text(centerX + 400, 30, `DiffSETT: ${gameState.difficultySetting}`, {
-      fontFamily: gameState.fontFamily,
-      fontSize: "30px",
-      fill: "#000000",
-    });
-    //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     // Remove enemies that leave scene
     // Extra points for rare octopuses
     this.physics.add.overlap(octopuses, waveEnd, function () {
@@ -403,14 +398,6 @@ class GameScene extends Phaser.Scene {
       heartGenLoop.delay = heartBaseDelay * gameState.difficulty;
       enemyGenLoop.delay = enemyBaseDelay / gameState.difficulty;
       octopusGenLoop.delay = octopusBaseDelay / gameState.difficulty;
-
-      //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      gameState.diffText.setText(
-        `Difficulty: ${gameState.difficulty} Hdel: ${heartGenLoop.delay} EnDel:${enemyGenLoop.delay} HP:${heartPoints} EP${enemyPoints}`
-      );
-      gameState.diffText.depth = 50;
-      gameState.diffSettingsText.setText(`DiffSETT: ${gameState.difficultySetting}`);
-      //DEBUG TEXT _ DELETE WHEN DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     });
   }
 
