@@ -73,7 +73,7 @@ class EndScene extends Phaser.Scene {
         fill: "#000000",
       });
 
-      this.add.text(centerX - 115, centerY + 50, `SCORE: ${score}`, {
+      this.add.text(centerX - 120, centerY + 50, `SCORE: ${score}`, {
         fontFamily: gameState.fontFamily,
         fontSize: "30px",
         fill: "#000000",
@@ -85,7 +85,7 @@ class EndScene extends Phaser.Scene {
         fill: "#000000",
       });
 
-      this.add.text(centerX - 90, centerY + 50, `SCORE: ${score}`, {
+      this.add.text(centerX - 120, centerY + 50, `SCORE: ${score}`, {
         fontFamily: gameState.fontFamily,
         fontSize: "30px",
         fill: "#000000",
