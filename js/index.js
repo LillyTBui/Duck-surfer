@@ -65,6 +65,7 @@ carousel.onclick = function (event) {
 };
 
 function toGame() {
+  localStorage.setItem("difficultySetting", JSON.stringify(difficultyChoice));
   window.location.href = "game.html";
 }
 
@@ -85,3 +86,33 @@ volume.addEventListener("input", function () {
   backgroundSong.volume = volume.value;
   localStorage.setItem("volume", JSON.stringify(volume.value));
 });
+
+// Difficulty settings
+const easy = document.querySelector("#easy");
+const medium = document.querySelector("#medium");
+const hard = document.querySelector("#hard");
+let difficultyChoice = 1;
+
+easy.onclick = function () {
+  difficultyChoice = 0.5;
+  click.play();
+  easy.style.opacity = "1";
+  medium.style.opacity = "0.5";
+  hard.style.opacity = "0.5";
+};
+
+medium.onclick = function () {
+  difficultyChoice = 1;
+  click.play();
+  medium.style.opacity = "1";
+  easy.style.opacity = "0.5";
+  hard.style.opacity = "0.5";
+};
+
+hard.onclick = function () {
+  difficultyChoice = 1.5;
+  click.play();
+  hard.style.opacity = "1";
+  easy.style.opacity = "0.5";
+  medium.style.opacity = "0.5";
+};
