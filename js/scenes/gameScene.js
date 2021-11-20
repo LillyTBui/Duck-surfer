@@ -1,41 +1,3 @@
-/* Change log
-// 16.11 Johannes
-  Ryddet kode. Kuttet mange kommenterte linjer og redusert kode som var unødvendig. Samlet logikk for octopus og enemies i størst mulig grad uten å fjerne funksjonalitet.
-  (Linje 364- 375 og 410-416 skal fjernes når vi er ferdige med vanskelighetsgrad.)
-  Forbedret kommentarer til kode.
-  La til to ekstra farger plastposer.
-  Lagt til lyd på mellomrom -> pause.
-  Lagt inn ny info i hovedmenyen. Skrev det på engelsk siden alle knappene er på engelsk, men det kan vi eventuelt endre tilbake til norsk igjen.
-  Lagt til tweens for å animere stjernene i endgame.
-  Lagt inn struktur for at spiller kan velge vanskelighetsgrad - !MEN den må linkes opp med spillerens valg.
-  ->Lilly, vet du hvordan man fikser dette? variabelen er gameState.difficultySetting;
-
-// 16.11 Lilly
-  På index siden:
-  fjernet vanskelighetsgrad fra settings og har planker i stedenfor
-  har satt vanskelighetsgrad til:
-  - easy = 1
-  - medium = 2
-  - hard = 3
-  disse kan du justere på index.js fra l.94 
-  som default er difficultyChoice satt til 2 (medium) linje 94, hvis spilleren ikke velger 
-  vanskelighetsgrad selv.
-
-  la til gameState.splashSound.play(); l.365 i gameScene
-
-  lagt til de nye lydeffektene i bootScene.
-  lagt til new highscore tekst, applause lyd og 3 ulike vinne lyder 
-  l.50 - l.98 i endScene.js
-  
-  //17.11 Johannes
-Oppdaterte vanskelighetsgrad til:
- - easy = 0.5 
-- medium = 1 (samme for standard)
-- hard = 1.5 
-Dette fungerer med oppdateringsmekanismen for økende vanskelighetsgrad utover i spillet
-
-*/
-
 // Player surfboard
 const id = JSON.parse(localStorage.getItem("surfboard"));
 let key;
@@ -55,11 +17,11 @@ class GameScene extends Phaser.Scene {
 
   preload() {
     //Background
-    this.load.spritesheet("bgWave", "../../images/test-background.png", {
+    this.load.spritesheet("bgWave", "../../images/game-background.png", {
       frameHeight: 1200,
       frameWidth: 1200,
     });
-    this.load.spritesheet("bgWave2", "../../images/test-bølge.png", {
+    this.load.spritesheet("bgWave2", "../../images/bølge.png", {
       frameHeight: 1200,
       frameWidth: 1200,
     });
@@ -67,7 +29,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("waveTwoTop", "../../images/waveTwoTop.png");
 
     //Enemies
-    this.load.image("bgEnd", "../../images/background_end2.png");
+    this.load.image("bgEnd", "../../images/background_end.png");
     this.load.image("shark", "../../images/shark.png");
     this.load.image("ink", "../../../images/ink.png");
     this.load.image("octopus", "../../images/octopus.png");
