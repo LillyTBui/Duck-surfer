@@ -1,17 +1,26 @@
+// Colour choice of buttons
+const colourChoice = JSON.parse(localStorage.getItem("colourChoice"));
+let colour;
+
+if (colourChoice == "black") {
+  colour = "-black";
+} else {
+  colour = "";
+}
+
 class BootScene extends Phaser.Scene {
   constructor() {
     super({ key: "BootScene" });
   }
   preload() {
     //Load common resources
-    this.load.image("iconsettings", "../../images/icon-settings.png");
-    this.load.image("iconpause", "../../images/icon-pause.png");
-    this.load.image("iconexit", "../../images/icon-exit.png");
-    this.load.image("iconsound", "../../images/icon-sound.png");
-    this.load.image("iconplay", "../../images/icon-play.png");
-    this.load.image("no-sound", "../../images/no-sound.png");
-    this.load.image("low-sound", "../../images/low-sound.png");
-    this.load.image("high-sound", "../../images/high-sound.png");
+    this.load.image("iconpause", `../../images/icon-pause${colour}.png`);
+    this.load.image("iconexit", `../../images/icon-exit${colour}.png`);
+    this.load.image("iconsound", `../../images/icon-sound${colour}.png`);
+    this.load.image("iconplay", `../../images/icon-play${colour}.png`);
+    this.load.image("no-sound", `../../images/no-sound${colour}.png`);
+    this.load.image("low-sound", `../../images/low-sound${colour}.png`);
+    this.load.image("high-sound", `../../images/high-sound${colour}.png`);
     this.load.image("heart", "../../images/heart.png");
     this.load.image("gameOver", "../../images/game-over.png");
     this.load.image("star", "../../images/star.png");

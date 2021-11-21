@@ -1,4 +1,4 @@
-// Player surfboard
+// Player surfboard and colour
 const id = JSON.parse(localStorage.getItem("surfboard"));
 let key;
 
