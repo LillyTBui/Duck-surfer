@@ -22,31 +22,43 @@
   <body>
     <section class="homepage">
       <a href="index.html">
-        <img src="images/logo.png" alt="duck surfer logo" class="logo" />
+        <img src="images/logo.png" alt="duck surfer logo" class="homepage__logo" />
       </a>
-      <div class="menu-container">
-        <div class="box menu">
-          <img src="images/btn-start.png" alt="start game button" class="btn" id="btn-start" />
-          <img src="images/icon-how_to_play.png" alt="how to play button" class="btn" id="btn-how-to-play" />
-          <img src="images/settings.png" alt="settings button" class="btn" id="btn-settings" />
-          <img src="images/btn-credits.png" alt="credits button" class="btn" id="btn-credits" />
+      <div class="menu">
+        <div class="menu__item menu__container">
+          <img src="images/btn-start.png" alt="start game button" class="btn menu__btn" id="btn-start" />
+          <img src="images/icon-how_to_play.png" alt="how to play button" class="btn menu__btn" id="btn-how-to-play" />
+          <img src="images/settings.png" alt="settings button" class="btn menu__btn" id="btn-settings" />
+          <img src="images/btn-credits.png" alt="credits button" class="btn menu__btn" id="btn-credits" />
         </div>
         <div id="carousel-container" class="carousel" data-bs-ride="carousel">
-          <div class="box carousel-inner">
+          <div class="menu__item carousel-inner carousel__inner">
             <div class="carousel-item active" data-interval="false">
               <img
                 src="images/brett1.png"
                 alt="green surfboard"
-                class="d-block w-25"
+                class="d-block w-25 carousel__img"
                 id="surfboard-green"
                 data-id="1"
               />
             </div>
             <div class="carousel-item">
-              <img src="images/brett2.png" alt="gray surfboard" class="d-block w-25" id="surfboard-gray" data-id="2" />
+              <img
+                src="images/brett2.png"
+                alt="gray surfboard"
+                class="d-block w-25 carousel__img"
+                id="surfboard-gray"
+                data-id="2"
+              />
             </div>
             <div class="carousel-item">
-              <img src="images/brett3.png" alt="pink surfboard" class="d-block w-25" id="surfboard-pink" data-id="3" />
+              <img
+                src="images/brett3.png"
+                alt="pink surfboard"
+                class="d-block w-25 carousel__img"
+                id="surfboard-pink"
+                data-id="3"
+              />
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carousel-container" data-bs-slide="prev">
@@ -58,44 +70,44 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        <div class="box block how-to-play">
-          <h1>Game Rules</h1>
+        <div class="menu__item menu__block menu__how-to-play">
+          <h1 class="menu__title">Game Rules</h1>
           <ul>
-            <li>Choose a surfing board and use the arrow keys to move around.</li>
-            <li>Watch out for the plastic bags, sharks and octopuses!</li>
-            <li>Gather points by avoiding those, and by collecting hearts.</li>
-            <li>Lose lives by hitting enemies.</li>
-            <li>Gain lives you've lost by collecting hearts.</li>
-            <li>If you drop all three lives, it's game over.</li>
-            <li>And watch out so you don't get caught by the wave...</li>
+            <li class="menu__listItem">Choose a surfing board and use the arrow keys to move around.</li>
+            <li class="menu__listItem">Watch out for the plastic bags, sharks and octopuses!</li>
+            <li class="menu__listItem">Gather points by avoiding those, and by collecting hearts.</li>
+            <li class="menu__listItem">Lose lives by hitting enemies.</li>
+            <li class="menu__listItem">Gain lives you've lost by collecting hearts.</li>
+            <li class="menu__listItem">If you drop all three lives, it's game over.</li>
+            <li class="menu__listItem">And watch out so you don't get caught by the wave...</li>
           </ul>
-          <img src="images/btn-back.png" alt="back button" class="btn-back" />
+          <img src="images/btn-back.png" alt="back button" class="menu__btn-back" />
         </div>
-        <div class="box block settings">
-          <h1>Settings</h1>
-          <div class="settings-div">
-            <h2>Sound</h2>
+        <div class="menu__item menu__block menu__settings">
+          <h1 class="menu__title">Settings</h1>
+          <div class="menu__settings-container">
+            <h2 class="menu__settings-title">Sound</h2>
             <input type="range" class="volume" min="0" max="1" step="0.1" />
           </div>
-          <img src="images/btn-back.png" alt="back button" class="btn-back" />
+          <img src="images/btn-back.png" alt="back button" class="menu__btn-back menu__settings-back" />
         </div>
-        <div class="box block credits">
-          <h1>Credits</h1>
-          <p>This game was made as a Bachelor's in Information Technology project at NTNU.</p>
-          <p>It was made by:</p>
+        <div class="menu__item menu__block menu__credits">
+          <h1 class="menu__title">Credits</h1>
+          <p class="menu__p">This game was made as a Bachelor's in Information Technology project at NTNU.</p>
+          <p class="menu__p">It was made by:</p>
           <ul>
             <li>Johannes Solbraa Bay</li>
             <li>Lilly Thi Bui</li>
             <li>Kaspar Kindem</li>
             <li>Stian Sagstad</li>
           </ul>
-          <img src="images/btn-back.png" alt="back button" class="btn-back" />
+          <img src="images/btn-back.png" alt="back button" class="menu__btn-back" />
         </div>
       </div>
-      <div class="difficulty-div">
-        <img src="images/easy.png" alt="easy difficulty" id="easy" />
-        <img src="images/medium.png" alt="medium difficulty" id="medium" />
-        <img src="images/hard.png" alt="hard difficulty" id="hard" />
+      <div class="difficulty">
+        <img src="images/easy.png" alt="easy difficulty" id="easy" class="difficulty__item" />
+        <img src="images/medium.png" alt="medium difficulty" id="medium" class="difficulty__item" />
+        <img src="images/hard.png" alt="hard difficulty" id="hard" class="difficulty__item" />
       </div>
     </section>
 

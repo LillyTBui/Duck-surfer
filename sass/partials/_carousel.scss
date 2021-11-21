@@ -1,0 +1,17 @@
+.carousel {
+  display: none;
+
+  &__inner {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+  }
+
+  &__img {
+    margin: auto;
+  }
+
+  &__img:hover {
+    transform: scale(1.08);
+  }
+}

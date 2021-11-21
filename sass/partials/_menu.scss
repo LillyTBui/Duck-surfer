@@ -1,0 +1,81 @@
+.menu {
+  background-color: #f9d748;
+  padding: 5px;
+  margin-top: 50px;
+  border-radius: 25px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  &__item {
+    background-color: #e89c3c;
+    border-radius: 25px;
+  }
+
+  &__btn {
+    max-width: 150px;
+  }
+
+  &__btn:hover {
+    transform: scale(1.15);
+  }
+
+  &__btn-back {
+    max-width: 100px;
+    margin: 10px auto 0px auto;
+  }
+
+  &__btn-back:hover {
+    transform: scale(1.15);
+  }
+
+  &__block {
+    max-width: 350px;
+    padding: 20px 10px;
+    flex-direction: column;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  &__p {
+    margin: 10px;
+  }
+
+  &__how-to-play {
+    display: none;
+  }
+
+  &__listItem {
+    padding: 0px 5px;
+  }
+
+  &__credits {
+    display: none;
+  }
+
+  &__settings {
+    display: none;
+    padding: 30px;
+  }
+
+  &__settings-container {
+    margin: 10px 0px;
+  }
+
+  &__settings-title {
+    font-size: 1.2em;
+  }
+
+  &__settings-back {
+    margin-top: 20px;
+  }
+}

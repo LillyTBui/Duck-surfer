@@ -1,0 +1,16 @@
+.difficulty {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  &__item {
+    margin: 0px 10px;
+    max-width: 200px;
+  }
+
+  &__item:hover {
+    transform: scale(1.1);
+  }
+}

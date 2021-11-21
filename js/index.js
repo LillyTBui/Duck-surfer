@@ -1,15 +1,15 @@
 /* Buttons */
 const start = document.querySelector("#btn-start");
-const backBtn = document.querySelectorAll(".btn-back");
+const backBtn = document.querySelectorAll(".menu__btn-back");
 const howToPlay = document.querySelector("#btn-how-to-play");
 const credits = document.querySelector("#btn-credits");
 const settings = document.querySelector("#btn-settings");
 
-const menu = document.querySelector(".menu");
+const menu = document.querySelector(".menu__container");
 const carousel = document.querySelector("#carousel-container");
-const howToPlayBlock = document.querySelector(".how-to-play");
-const creditsBlock = document.querySelector(".credits");
-const settingsBlock = document.querySelector(".settings");
+const howToPlayBlock = document.querySelector(".menu__how-to-play");
+const creditsBlock = document.querySelector(".menu__credits");
+const settingsBlock = document.querySelector(".menu__settings");
 
 /* Boards */
 const surfGreen = document.querySelector("#surfboard-green");

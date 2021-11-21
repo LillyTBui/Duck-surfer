@@ -1,150 +1,172 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 .homepage {
   background-image: url("../images/background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.logo {
+.homepage__logo {
   max-width: 300px;
 }
 
-.menu-container {
+.menu {
   background-color: #f9d748;
   padding: 5px;
   margin-top: 50px;
   border-radius: 25px;
 }
 
-.menu {
+.menu__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 10px 20px;
 }
 
-.box {
+.menu__item {
   background-color: #e89c3c;
   border-radius: 25px;
 }
 
-/* carousel */
-
-#carousel-container {
-  display: none;
+.menu__btn {
+  max-width: 150px;
 }
 
-.carousel-inner {
-  display: flex;
-  padding: 20px;
-  justify-content: space-between;
+.menu__btn:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
 }
 
-.carousel-inner img {
-  margin: auto;
+.menu__btn-back {
+  max-width: 100px;
+  margin: 10px auto 0px auto;
 }
 
-/* block */
+.menu__btn-back:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
+}
 
-.block {
+.menu__block {
   max-width: 350px;
   padding: 20px 10px;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.block h1 {
+.menu__title {
   text-transform: uppercase;
   text-align: center;
   font-size: 2em;
   margin-bottom: 20px;
 }
 
-.block p {
+.menu__p {
   margin: 10px;
 }
 
-/* how to play */
-
-.how-to-play {
+.menu__how-to-play {
   display: none;
 }
 
-/* settings */
+.menu__listItem {
+  padding: 0px 5px;
+}
 
-.settings {
+.menu__credits {
+  display: none;
+}
+
+.menu__settings {
   display: none;
   padding: 30px;
 }
 
-.settings h2 {
-  font-size: 1.2em;
-}
-
-.settings-div {
+.menu__settings-container {
   margin: 10px 0px;
 }
 
-.settings .btn-back {
+.menu__settings-title {
+  font-size: 1.2em;
+}
+
+.menu__settings-back {
   margin-top: 20px;
 }
 
-/* credits */
-
-.credits {
+.carousel {
   display: none;
 }
 
-/* buttons */
-
-.btn {
-  max-width: 150px;
-}
-
-.btn:hover {
-  transform: scale(1.15);
-}
-
-.btn-back {
-  max-width: 100px;
-  margin: 10px auto 0px auto;
-}
-
-.btn-back:hover {
-  transform: scale(1.15);
-}
-
-#surfboard-green:hover,
-#surfboard-gray:hover,
-#surfboard-pink:hover {
-  transform: scale(1.08);
-}
-
-/* Difficulty */
-.difficulty-div {
-  margin-top: 30px;
+.carousel__inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  padding: 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.difficulty-div > * {
+.carousel__img {
+  margin: auto;
+}
+
+.carousel__img:hover {
+  -webkit-transform: scale(1.08);
+          transform: scale(1.08);
+}
+
+.difficulty {
+  margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.difficulty__item {
   margin: 0px 10px;
-}
-
-#easy:hover,
-#medium:hover,
-#hard:hover {
-  transform: scale(1.1);
-}
-
-#easy,
-#medium,
-#hard {
   max-width: 200px;
 }
+
+.difficulty__item:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+/*# sourceMappingURL=styles.css.map */
