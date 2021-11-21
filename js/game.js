@@ -32,3 +32,9 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+const gameContainer = document.querySelector("#game-container");
+const loading = document.querySelector(".loading");
+
+window.addEventListener("load", function () {
+  loading.style.display = "none";
+});
