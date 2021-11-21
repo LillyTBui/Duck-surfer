@@ -65,6 +65,14 @@ carousel.onclick = function (event) {
 };
 
 function toGame() {
+  let colour;
+  if (checked.checked) {
+    colour = "black";
+  } else {
+    colour = "white";
+  }
+
+  localStorage.setItem("colourChoice", JSON.stringify(colour));
   localStorage.setItem("difficultySetting", JSON.stringify(difficultyChoice));
   window.location.href = "game.html";
 }
@@ -116,3 +124,32 @@ hard.onclick = function () {
   easy.style.opacity = "0.5";
   medium.style.opacity = "0.5";
 };
+
+// Change colour of buttons
+const checked = document.querySelector("#black-colour");
+
+checked.addEventListener("input", function () {
+  const statusChecked = document.querySelector("#black-colour").checked;
+
+  if (statusChecked) {
+    document.querySelector("#btn-start").src = "images/btn-start-black.png";
+    document.querySelector("#btn-how-to-play").src = "images/btn-how_to_play-black.png";
+    document.querySelector("#btn-settings").src = "images/btn-settings-black.png";
+    document.querySelector("#btn-credits").src = "images/btn-credits-black.png";
+    const backBtn = document.querySelectorAll(".menu__btn-back");
+
+    backBtn.forEach(function (btn) {
+      btn.src = "images/btn-back-black.png";
+    });
+  } else {
+    document.querySelector("#btn-start").src = "images/btn-start.png";
+    document.querySelector("#btn-how-to-play").src = "images/btn-how_to_play.png";
+    document.querySelector("#btn-settings").src = "images/btn-settings.png";
+    document.querySelector("#btn-credits").src = "images/btn-credits.png";
+    const backBtn = document.querySelectorAll(".menu__btn-back");
+
+    backBtn.forEach(function (btn) {
+      btn.src = "images/btn-back.png";
+    });
+  }
+});
